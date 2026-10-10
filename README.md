@@ -151,8 +151,11 @@ See [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md), [docs/DECISIONS.md](docs/DECIS
   bundled.
 - Third-party newsletter forms (Klaviyo, Mailchimp, Omnisend, Privy, ...) are detected but not
   tested ("form detected, not testable").
-- Hover menus (INT-6), the visual baseline comparison (CHK-19) and AI screenshot review are not part
-  of v1.
+- AI screenshot review is not part of v1. Hover-menu testing (INT-6) needs the debugging permission
+  (trusted mouse input) and is desktop only.
+- The visual baseline (CHK-19, off by default, enable it in Options) compares a viewport capture with
+  the saved baseline per store, path and viewport. Masked regions (video, iframes, carousels by
+  default) are blanked out; the diff threshold is configurable.
 - Full mode samples pages; it is not a crawler. Links are checked per page (cap 100) with HEAD,
   falling back to GET; external links are only reachability-checked when enabled.
 - Only Chromium browsers are supported. The bundled UI fonts fall back to system fonts (no remote
