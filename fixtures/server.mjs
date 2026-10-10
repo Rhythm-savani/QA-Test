@@ -3,6 +3,7 @@
 //   broken - the same site with every acceptance-table defect seeded
 //   locked - everything redirects to /password
 import http from 'node:http';
+import { crc32, deflateSync } from 'node:zlib';
 import { readFileSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -25,6 +26,39 @@ const JS = readFileSync(resolve(here, 'theme.js'), 'utf8');
 function svg(w, h, label, fill = '#d9e4ec') {
   return `<svg xmlns="http://www.w3.org/2000/svg" width="${w}" height="${h}" viewBox="0 0 ${w} ${h}"><rect width="100%" height="100%" fill="${fill}"/><text x="50%" y="50%" font-family="Arial" font-size="${Math.round(Math.min(w, h) / 8)}" fill="#1b3a4b" text-anchor="middle" dominant-baseline="middle">${label}</text></svg>`;
 }
+// Low-entropy images (flat SVG/PNG) are excluded from LCP by Chrome, so the hero is seeded noise.
+function noisePng(w, h) {
+  const raw = Buffer.alloc((w + 1) * h);
+  let x = 123456789;
+  for (let y = 0; y < h; y++) {
+    for (let i = 0; i < w; i++) {
+      x ^= x << 13;
+      x ^= x >>> 17;
+      x ^= x << 5;
+      raw[y * (w + 1) + 1 + i] = (x >>> 0) & 0xff;
+    }
+  }
+  const chunk = (t, d) => {
+    const len = Buffer.alloc(4);
+    len.writeUInt32BE(d.length);
+    const td = Buffer.concat([Buffer.from(t), d]);
+    const c = Buffer.alloc(4);
+    c.writeUInt32BE(crc32(td));
+    return Buffer.concat([len, td, c]);
+  };
+  const ihdr = Buffer.alloc(13);
+  ihdr.writeUInt32BE(w, 0);
+  ihdr.writeUInt32BE(h, 4);
+  ihdr[8] = 8;
+  ihdr[9] = 0;
+  return Buffer.concat([
+    Buffer.from([137, 80, 78, 71, 13, 10, 26, 10]),
+    chunk('IHDR', ihdr),
+    chunk('IDAT', deflateSync(raw)),
+    chunk('IEND', Buffer.alloc(0)),
+  ]);
+}
+const HERO_PNG = noisePng(900, 375);
 const IMAGES = {
   'hero.svg': svg(900, 375, 'Northwind'),
   'ring-gold.svg': svg(480, 480, 'Gold ring', '#f3e3b3'),
@@ -88,7 +122,7 @@ export async function startFixtures() {
   }
   resetState();
 
-  function makeHandler(site, getOrigin) {
+  function makeHandler(site) {
     return async (req, res) => {
       const u = new URL(req.url, 'http://x');
       const path = u.pathname;
@@ -121,6 +155,7 @@ export async function startFixtures() {
       if (path === '/assets/theme.css') return send(200, 'text/css', CSS);
       if (path === '/assets/theme.js') return send(200, 'application/javascript', JS);
       const im = path.match(/^\/img\/([^/]+)$/);
+      if (im && im[1] === 'hero.png') return send(200, 'image/png', HERO_PNG);
       if (im && IMAGES[im[1]]) return send(200, 'image/svg+xml', IMAGES[im[1]]);
 
       // sentinels

@@ -8,7 +8,8 @@ import { fileURLToPath } from 'node:url';
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const e2e = process.argv.includes('--e2e');
 const pkg = JSON.parse(readFileSync(resolve(root, 'package.json'), 'utf8'));
-const dist = resolve(root, 'dist');
+const outArg = process.argv.find((a) => a.startsWith('--out='));
+const dist = outArg ? resolve(outArg.slice(6)) : resolve(root, 'dist');
 
 const define = {
   __E2E__: JSON.stringify(e2e),

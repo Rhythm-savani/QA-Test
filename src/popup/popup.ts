@@ -860,7 +860,12 @@ function render() {
 }
 
 async function probeTab(): Promise<ActiveTabInfo> {
-  const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+  let [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+  if (__E2E__) {
+    // SQA_E2E_HOOK: tests open popup.html in a normal tab, so let them name the storefront tab.
+    const id = new URLSearchParams(location.search).get('tabId');
+    if (id) tab = await chrome.tabs.get(Number(id));
+  }
   const info: ActiveTabInfo = {
     tabId: tab?.id,
     url: tab?.url,

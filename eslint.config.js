@@ -6,6 +6,17 @@ export default tseslint.config(
   js.configs.recommended,
   ...tseslint.configs.recommended,
   {
+    files: ['fixtures/theme.js'],
+    languageOptions: {
+      globals: {
+        HTMLElement: 'readonly', customElements: 'readonly', location: 'readonly', history: 'readonly',
+        navigator: 'readonly', URL: 'readonly', fetch: 'readonly', document: 'readonly', window: 'readonly',
+        setTimeout: 'readonly', clearTimeout: 'readonly', console: 'readonly',
+      },
+    },
+    rules: { '@typescript-eslint/no-this-alias': 'off' },
+  },
+  {
     languageOptions: {
       globals: {
         window: 'readonly', document: 'readonly', chrome: 'readonly', console: 'readonly',

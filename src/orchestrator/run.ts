@@ -702,7 +702,7 @@ export async function executeRun(pending: PendingRun, env: RunEnv): Promise<RunR
         continue;
       }
       if (live && c.id === 'CHK-09') {
-        run.notes.includes('interactions-live') || run.notes.push('interactions-live');
+        if (!run.notes.includes('interactions-live')) run.notes.push('interactions-live');
       }
       todo.push(c);
     }
@@ -789,7 +789,7 @@ export async function executeRun(pending: PendingRun, env: RunEnv): Promise<RunR
         const msg = `Newsletter test address ${opts.newsletterEmail} was submitted on ${new URL(url).pathname}. Remove it from the store's subscribers manually.`;
         if (!run.sideEffects.includes(msg)) run.sideEffects.push(msg);
       }
-      if (!outcome.ok) {
+      if (!outcome || !outcome.ok) {
         results.push({
           checkId: c.id,
           status: 'errored',
@@ -906,7 +906,7 @@ export async function executeRun(pending: PendingRun, env: RunEnv): Promise<RunR
         } catch (e) {
           out = { ok: false, error: errMsg(e) };
         }
-        if (out.ok && out.data) {
+        if (out && out.ok && out.data) {
           merged.findings.push(...out.data.findings);
           merged.total = Math.max(merged.total, out.data.total);
           merged.tested += out.data.tested;
@@ -918,8 +918,9 @@ export async function executeRun(pending: PendingRun, env: RunEnv): Promise<RunR
         } else {
           // navigation or crash mid-run: keep what the page logged, resume after the failing index
           merged.findings.push(...ixLog.findings);
+          merged.tested += Math.max(0, ixLog.index - start + 1);
           start = ixLog.index + 1;
-          errored = out.error ?? 'unknown error';
+          errored = out?.error ?? 'page navigated away';
           if (start >= opts.maxInteractions) break;
         }
         // reload and continue with the next candidate

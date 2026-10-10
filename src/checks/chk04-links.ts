@@ -43,10 +43,12 @@ export const chk04: Check<Data> = {
       if (rawHref === null) continue;
       let href = '';
       let sameOrigin = false;
-      let scheme = '';
+      let scheme: string;
+      // pure fragments (skip links, in-page anchors) point at this very document: nothing to fetch
+      const fragmentOnly = rawHref.trim().startsWith('#') && rawHref.trim().length > 1;
       try {
         const u = new URL(rawHref, location.href);
-        scheme = u.protocol;
+        scheme = fragmentOnly ? 'fragment:' : u.protocol;
         href = u.href.split('#')[0];
         sameOrigin = u.origin === location.origin;
       } catch {
@@ -86,7 +88,7 @@ export const chk04: Check<Data> = {
         statuses[href] = cache[href];
         continue;
       }
-      let status = 0;
+      let status: number;
       try {
         const external = new URL(href).origin !== location.origin;
         if (external) {

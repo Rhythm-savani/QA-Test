@@ -187,7 +187,7 @@ ${head}
     }</a>
   </div>
 </header>
-<cart-drawer class="drawer" ${broken ? 'data-keeplock="1"' : ''}>
+<cart-drawer class="drawer">
   <div class="cart-drawer__overlay"></div>
   <div id="CartDrawer" class="drawer__inner" role="dialog" aria-modal="true" aria-label="Cart" tabindex="-1">
     <div class="drawer__header">
@@ -211,7 +211,7 @@ ${body}
       <li><a href="/checkout" data-beacon="checkout-link">Check out</a></li>
     </ul>
     <form action="/account/logout" method="post"><button type="submit" class="button" data-beacon="logout-button">Log out</button></form>
-    ${broken ? '<button type="button" class="button" data-qa-go-checkout>Continue</button>' : ''}
+    ${broken ? '<button type="button" class="button" data-qa-go-checkout>Show more</button>' : ''}
     <p class="muted">&copy; Northwind fixture</p>
   </div>
 </footer>
@@ -243,17 +243,17 @@ function newsletter(site, ctx) {
   </section>`;
 }
 
-function card(handle, alt) {
+function card(handle, alt, level = 3) {
   const p = PRODUCTS[handle];
   return `<li><a href="/products/${handle}"><img src="/img/${handle === 'pearl-studs' ? 'ring-silver' : 'ring-gold'}.svg" alt="${esc(alt || p.title)}" width="240" height="240" loading="lazy"></a>
-    <h3><a href="/products/${handle}">${esc(p.title)}</a></h3><p class="price">From ${money(p.variants[0].price)}</p></li>`;
+    <h${level}><a href="/products/${handle}">${esc(p.title)}</a></h${level}><p class="price">From ${money(p.variants[0].price)}</p></li>`;
 }
 
 function home(site, ctx) {
   const broken = site === 'broken';
   const heroImg = broken
-    ? `<img src="/img/hero.svg" alt="Hero" width="900" height="375" loading="lazy">`
-    : `<img src="/img/hero.svg" alt="Handmade jewellery on a stone surface" width="900" height="375" fetchpriority="high">`;
+    ? `<img src="/img/hero.png" alt="Hero" width="900" height="375" loading="lazy">`
+    : `<img src="/img/hero.png" alt="Handmade jewellery on a stone surface" width="900" height="375" fetchpriority="high">`;
   const brokenBlocks = broken
     ? `
   <div class="section" id="shopify-section-template--1__seeded">
@@ -265,7 +265,7 @@ function home(site, ctx) {
     <p><a href="/pages/does-not-exist">Gift guide</a> · <a href="#">Read more</a></p>
     <div style="width:600px;height:20px;background:#ccc" role="presentation"></div>
     <p class="qa-lowcontrast">Low contrast promotional text</p>
-    <input type="text" name="promo" placeholder="Promo code">
+    <input type="text" name="promo">
     <button type="button" style="width:16px;height:16px;padding:0;font-size:8px" aria-label="Tiny">x</button>
     <div style="position:relative;height:60px"><button type="button" class="button" id="covered-btn" style="position:absolute;left:0;top:0">Covered button</button><div class="qa-cover" style="left:0;top:0;width:200px;height:48px"></div></div>
   </div>
@@ -371,7 +371,7 @@ function collection(site, ctx, name) {
   return layout(site, ctx, {
     title: `${name} — Northwind`,
     body: `<main id="MainContent"><div class="section"><h1>${esc(name)}</h1>
-    <ul class="card-grid">${card('aurora-ring')}${card('pearl-studs')}${site === 'broken' ? card('broken-ring', 'Broken ring') : ''}</ul></div></main>`,
+    <ul class="card-grid">${card('aurora-ring', undefined, 2)}${card('pearl-studs', undefined, 2)}${site === 'broken' ? card('broken-ring', 'Broken ring', 2) : ''}</ul></div></main>`,
   });
 }
 
@@ -428,7 +428,7 @@ function searchPage(site, ctx) {
   return layout(site, ctx, {
     title: 'Search — Northwind',
     body: `<main id="MainContent"><div class="section"><h1>Search results</h1>
-    ${hits.length ? `<p>${hits.length} results for “${esc(q)}”</p><ul class="card-grid product-grid">${hits.map(([h]) => card(h)).join('')}</ul>` : `<p>No results found for “${esc(q)}”</p>`}
+    ${hits.length ? `<p>${hits.length} results for “${esc(q)}”</p><ul class="card-grid product-grid">${hits.map(([h]) => card(h, undefined, 2)).join('')}</ul>` : `<p>No results found for “${esc(q)}”</p>`}
     </div></main>`,
   });
 }

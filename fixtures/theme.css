@@ -24,6 +24,8 @@ body.overflow-hidden {
 }
 a {
   color: var(--accent);
+  display: inline-block;
+  padding: 2px 0;
 }
 .skip-to-content-link {
   position: absolute;
@@ -441,4 +443,8 @@ fieldset {
 }
 .qa-lowcontrast {
   color: #b5b5b5;
+}
+
+[hidden] {
+  display: none !important;
 }

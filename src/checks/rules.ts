@@ -322,6 +322,8 @@ export function makeFinding(
 
 /** Categories whose findings can point at a visible region (RPT-7). */
 export const VISUAL_RULES = new Set<string>([
+  'performance/lcp-lazy',
+  'performance/lcp-priority',
   'layout/horizontal-overflow',
   'layout/obscured-interactive',
   'layout/clipped-text',

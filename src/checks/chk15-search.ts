@@ -71,7 +71,7 @@ export const chk15: Check<Data> = {
     const errors = (window.__sqa?.events.slice(errBefore) ?? [])
       .filter((e) => e.kind === 'console-error' || e.kind === 'exception' || e.kind === 'rejection')
       .map((e) => e.message.slice(0, 160));
-    let status = 0;
+    let status: number;
     let ok = false;
     try {
       const res = await fetch(`/search?q=${encodeURIComponent(query)}`, {

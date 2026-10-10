@@ -3,7 +3,7 @@
 import type { Rect } from '../shared/types';
 
 export function cssEscape(s: string): string {
-  return s.replace(/[^a-zA-Z0-9_ -￿-]/g, (c) => '\\' + c).replace(/^(\d)/, '\\3$1 ');
+  return s.replace(/[^a-zA-Z0-9_\u00a0-\uffff-]/g, (c) => '\\' + c).replace(/^(\d)/, '\\3$1 ');
 }
 
 const HASHY = /^(css-|sc-|jsx-|_)|[0-9a-f]{6,}|\d{4,}/i;

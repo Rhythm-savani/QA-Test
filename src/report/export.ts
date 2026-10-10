@@ -41,7 +41,10 @@ export function exportMarkdown(run: RunRecord): string {
       lines.push(
         `- **${md(g.title)}** \`${g.rule}\` — ${md(g.message)} _(seen on ${g.pages.length} page(s), ${g.viewports.join('/')})_`,
       );
-      if (g.selector) lines.push(`  - selector: \`${g.selector.replace(/`/g, "'")}\``);
+      if (g.selector) {
+        const safe = g.selector.replace(/[<>`]/g, (c) => (c === '<' ? '‹' : c === '>' ? '›' : "'"));
+        lines.push(`  - selector: \`${safe}\``);
+      }
       if (g.hint) lines.push(`  - hint: ${md(g.hint)}`);
     }
   }

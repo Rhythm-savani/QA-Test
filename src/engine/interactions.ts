@@ -257,7 +257,7 @@ export function discoverCandidates(opts: Pick<IxOptions, 'skipSelectors' | 'deny
     out.push({ el, kind, classified });
   };
   for (const el of Array.from(document.querySelectorAll(CAROUSEL_BTN))) {
-    if (el.closest(CAROUSEL_ROOT)) consider(el, 'carousel', true);
+    if (el.parentElement?.closest(CAROUSEL_ROOT)) consider(el, 'carousel', true);
   }
   for (const el of Array.from(document.querySelectorAll('[role=tab]'))) consider(el, 'tab', true);
   const strong =
@@ -627,7 +627,11 @@ function carouselSig(root: Element): string {
 }
 
 async function testCarousel(btn: Element, io: IO, rep: Rep): Promise<Outcome> {
-  const root = btn.closest(CAROUSEL_ROOT) ?? btn.parentElement ?? document.body;
+  const root =
+    btn.parentElement?.closest('slider-component, [aria-roledescription=carousel]') ??
+    btn.parentElement?.closest(CAROUSEL_ROOT) ??
+    btn.parentElement ??
+    document.body;
   btn.scrollIntoView({ block: 'center' });
   const name = accessibleName(btn).slice(0, 30) || selectorFor(btn);
   const before = carouselSig(root);

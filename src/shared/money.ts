@@ -3,7 +3,7 @@
  * digits; a trailing ".00"-style fraction is normalised so "$10" and "$10.00" compare equal.
  */
 export function moneyToMinorUnits(text: string): string | null {
-  const t = text.replace(/ /g, ' ').trim();
+  const t = text.replace(/\u00a0/g, ' ').trim();
   const m = t.match(/\d[\d.,\s']*\d|\d/);
   if (!m) return null;
   const raw = m[0].replace(/[\s']/g, '');

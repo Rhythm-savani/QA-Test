@@ -161,6 +161,14 @@ function install() {
   sqa.prepareShot = prepareShot;
   sqa.clearShot = unmark;
 
+  // Input.dispatchMouseEvent works in visual-viewport space; when a mobile page is zoomed out to
+  // fit overflowing content, layout coordinates must be mapped through the visual viewport.
+  const toVisual = (x: number, y: number) => {
+    const vv = window.visualViewport;
+    if (!vv || (vv.scale === 1 && vv.offsetLeft === 0 && vv.offsetTop === 0)) return { x, y };
+    return { x: (x - vv.offsetLeft) * vv.scale, y: (y - vv.offsetTop) * vv.scale };
+  };
+
   // ---- IO for the interaction engine ----
   sqa.makeIO = (): IO => {
     const hasBinding =
@@ -185,13 +193,13 @@ function install() {
       async click(el) {
         const r = el.getBoundingClientRect();
         if (hasBinding) {
-          const ok = await rpc('click', { x: r.left + r.width / 2, y: r.top + r.height / 2 });
+          const ok = await rpc('click', toVisual(r.left + r.width / 2, r.top + r.height / 2));
           if (ok) return;
         }
         synthetic(el);
       },
       async clickPoint(x, y) {
-        if (hasBinding && (await rpc('click', { x, y }))) return;
+        if (hasBinding && (await rpc('click', toVisual(x, y)))) return;
         document
           .elementFromPoint(x, y)
           ?.dispatchEvent(new MouseEvent('click', { bubbles: true, clientX: x, clientY: y }));

@@ -81,7 +81,8 @@ export const chk08: Check<Data> = {
           continue;
         const r = el.getBoundingClientRect();
         if (r.width === 0 || r.height === 0) continue;
-        if (r.right <= vw + 1 && r.left >= -1) continue;
+        // only right-hand overflow creates a horizontal scrollbar (skip links sit at a negative left)
+        if (r.right <= vw + 1) continue;
         // ignore content clipped by an overflow container or translated off-canvas on purpose
         let clipped = false;
         for (let p = el.parentElement; p && p !== document.body; p = p.parentElement) {
@@ -95,13 +96,14 @@ export const chk08: Check<Data> = {
       }
       // keep outermost offenders only
       const outer = cand.filter((e) => !cand.some((o) => o !== e && o.contains(e)));
+      outer.sort((a, b) => b.getBoundingClientRect().right - a.getBoundingClientRect().right);
       for (const el of outer.slice(0, 5)) {
         const r = el.getBoundingClientRect();
         offenders.push({
           selector: selectorFor(el),
           snippet: snippetOf(el),
           rect: rectOf(el),
-          overshoot: Math.round(Math.max(r.right - vw, -r.left)),
+          overshoot: Math.round(r.right - vw),
         });
       }
       data.overflow = { scrollWidth: de.scrollWidth, clientWidth: de.clientWidth, offenders };
