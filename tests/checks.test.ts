@@ -642,6 +642,7 @@ describe('CHK-09 interactions', () => {
       tested: 5,
       capped: true,
       passed: [],
+      timings: [],
       skippedDenied: 0,
     });
     expect(fs[0].meta?.shotKey).toBe('k1');

@@ -397,6 +397,14 @@ export async function executeRun(pending: PendingRun, env: RunEnv): Promise<RunR
 
   function wireRpc(cdp: CdpSession) {
     cdp.rpcHandler = async (req: RpcRequest) => {
+      if (__E2E__ && (globalThis as { __SQA_TRACE?: boolean }).__SQA_TRACE) {
+        console.debug(
+          '[rpc]',
+          Math.round(performance.now()),
+          req.op,
+          JSON.stringify(req).slice(0, 160),
+        );
+      }
       switch (req.op) {
         case 'click':
           await cdp.mouseClick(Number(req.x), Number(req.y));
@@ -774,15 +782,19 @@ export async function executeRun(pending: PendingRun, env: RunEnv): Promise<RunR
           [true],
         ).catch(() => undefined);
       }
-      let outcome: { ok: boolean; data?: unknown; error?: string };
+      let outcome: { ok: boolean; data?: unknown; error?: string } | null;
       try {
         if (c.id === 'CHK-10') await ensureAxe(tab.id);
         outcome = await withTimeout(
-          exec<{ ok: boolean; data?: unknown; error?: string }>(
+          abortOnNavigation(
             tab.id,
-            ((id: string, ctx: unknown) =>
-              (window as unknown as G).__sqa!.runCollect!(id, ctx)) as never,
-            [c.id, pctx],
+            url,
+            exec<{ ok: boolean; data?: unknown; error?: string }>(
+              tab.id,
+              ((id: string, ctx: unknown) =>
+                (window as unknown as G).__sqa!.runCollect!(id, ctx)) as never,
+              [c.id, pctx],
+            ),
           ),
           Math.max(15000, Math.min(60000, budgetEnd - cs + 5000)),
         );
@@ -924,6 +936,7 @@ export async function executeRun(pending: PendingRun, env: RunEnv): Promise<RunR
         tested: 0,
         capped: false,
         passed: [],
+        timings: [],
         skippedDenied: 0,
       };
       let start = 0;
@@ -936,14 +949,18 @@ export async function executeRun(pending: PendingRun, env: RunEnv): Promise<RunR
           options: pageOpts,
           params: { startIndex: start, budgetMs: Math.max(5000, budgetEnd - performance.now()) },
         };
-        let out: { ok: boolean; data?: IxRun; error?: string };
+        let out: { ok: boolean; data?: IxRun; error?: string } | null;
         try {
           out = await withTimeout(
-            exec<{ ok: boolean; data?: IxRun; error?: string }>(
+            abortOnNavigation(
               tab.id,
-              ((id: string, ctx: unknown) =>
-                (window as unknown as G).__sqa!.runCollect!(id, ctx)) as never,
-              [c.id, pctx],
+              url,
+              exec<{ ok: boolean; data?: IxRun; error?: string }>(
+                tab.id,
+                ((id: string, ctx: unknown) =>
+                  (window as unknown as G).__sqa!.runCollect!(id, ctx)) as never,
+                [c.id, pctx],
+              ),
             ),
             Math.max(20000, budgetEnd - performance.now() + 10000),
           );
@@ -956,6 +973,7 @@ export async function executeRun(pending: PendingRun, env: RunEnv): Promise<RunR
           merged.tested += out.data.tested;
           merged.capped = merged.capped || out.data.capped;
           merged.passed.push(...out.data.passed);
+          merged.timings.push(...(out.data.timings ?? []));
           merged.skippedDenied += out.data.skippedDenied;
           if (!out.data.needReload) break;
           start = out.data.nextIndex;
@@ -986,7 +1004,7 @@ export async function executeRun(pending: PendingRun, env: RunEnv): Promise<RunR
           findings: fs,
           durationMs: performance.now() - cs,
           errorMessage: errored && merged.tested === 0 ? errored : undefined,
-          note: `Exercised ${merged.tested} of ${merged.total} triggers (${merged.skippedDenied} refused by the click denylist)`,
+          note: `Exercised ${merged.tested} of ${merged.total} triggers (${merged.skippedDenied} refused by the click denylist). Timings: ${merged.timings.join(', ')}`,
         });
         findings.push(...fs);
       } catch (e) {
@@ -1268,6 +1286,34 @@ function orderChecks(list: Check[]): Check[] {
             ? 99
             : 10;
   return [...list].sort((a, b) => rank(a) - rank(b));
+}
+
+/**
+ * executeScript never settles when the page navigates away mid-call (for example a blocked
+ * checkout redirect replaces the document). Resolve with null as soon as the tab starts a
+ * navigation to another document so the driver can reload and resume at once.
+ */
+function abortOnNavigation<T>(tabId: number, pageUrl: string, p: Promise<T>): Promise<T | null> {
+  const strip = (u: string) => u.split('#')[0];
+  return new Promise((resolve) => {
+    let settled = false;
+    const finish = (v: T | null) => {
+      if (settled) return;
+      settled = true;
+      chrome.webNavigation.onBeforeNavigate.removeListener(onNav);
+      resolve(v);
+    };
+    const onNav = (d: { tabId: number; frameId: number; url: string }) => {
+      if (d.tabId !== tabId || d.frameId !== 0) return;
+      if (strip(d.url) === strip(pageUrl)) return; // fragment-only navigation keeps the document
+      finish(null);
+    };
+    chrome.webNavigation.onBeforeNavigate.addListener(onNav);
+    p.then(
+      (v) => finish(v),
+      () => finish(null),
+    );
+  });
 }
 
 function withTimeout<T>(p: Promise<T>, ms: number): Promise<T> {

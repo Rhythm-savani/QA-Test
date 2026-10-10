@@ -38,6 +38,8 @@ export interface IxRun {
   capped: boolean;
   /** Human-readable list of what was exercised and passed (for the report). */
   passed: string[];
+  /** "<label> <seconds>" per exercised trigger, for diagnosing slow pages. */
+  timings: string[];
   skippedDenied: number;
 }
 
@@ -290,6 +292,7 @@ export async function runInteractions(opts: IxOptions, io: IO): Promise<IxRun> {
     tested: 0,
     capped: false,
     passed: [],
+    timings: [],
     skippedDenied: 0,
   };
   const { candidates, denied } = discoverCandidates(opts);
@@ -336,6 +339,7 @@ export async function runInteractions(opts: IxOptions, io: IO): Promise<IxRun> {
     const cand = list[i];
     const el = cand.el;
     if (!el.isConnected || !isVisible(el)) continue;
+    const startedAt = performance.now();
     try {
       const ok =
         cand.kind === 'carousel'
@@ -359,6 +363,9 @@ export async function runInteractions(opts: IxOptions, io: IO): Promise<IxRun> {
         meta: { crashed: true },
       });
     }
+    run.timings.push(
+      `${accessibleName(el).slice(0, 24) || selectorFor(el)} ${((performance.now() - startedAt) / 1000).toFixed(1)}s`,
+    );
     // SAF-4: unexpected navigation (pushState/hash). Full navigations destroy this context.
     if (location.href !== startUrl) {
       await rep(

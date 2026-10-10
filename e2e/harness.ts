@@ -55,6 +55,7 @@ export async function startRun(
   q.set('opts', JSON.stringify({ ...RELAXED, ...(p.opts ?? {}) }));
   if (p.groups) q.set('groups', JSON.stringify(p.groups));
   if (p.liveTab !== undefined) q.set('liveTab', String(p.liveTab));
+  if (process.env.SQA_TRACE) q.set('trace', '1');
   await page.goto(`chrome-extension://${extId}/report.html?${q}`);
   return page;
 }

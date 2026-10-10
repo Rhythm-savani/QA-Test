@@ -1057,6 +1057,9 @@ async function start(pending: PendingRun) {
 }
 
 async function init() {
+  if (__E2E__ && new URLSearchParams(location.search).get('trace') === '1') {
+    (globalThis as { __SQA_TRACE?: boolean }).__SQA_TRACE = true;
+  }
   const params = new URLSearchParams(location.search);
   if (__E2E__ && params.get('auto') === '1') {
     // SQA_E2E_HOOK: start a run from the URL so tests need no popup interaction.
