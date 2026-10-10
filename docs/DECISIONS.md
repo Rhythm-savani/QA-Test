@@ -131,7 +131,18 @@ ESLint on TypeScript), `jsdom` (DOM environment for the selector generator and e
 - The Options page's performance thresholds are shown in seconds (as designed) and stored in
   milliseconds.
 
-## Not done / deferred
+## Stretch items
 
-- CHK-19 visual baseline and INT-6 hover menus (stretch, v1 scope).
+**D26. CHK-19 visual baseline** stores one capture per run, origin, path and viewport under the
+`baselines` object store and promotes them with "Save this run as baseline". Captures are scaled to at
+most 800 px wide JPEG (the same capture path as evidence), so a diff is a coarse regression signal, not
+a pixel-perfect one. Mask regions come from a selector list (default: video, iframe, slider-component,
+carousels) instead of an interactive mask editor. `pixelmatch` is the only added runtime dependency.
+
+**D27. INT-6 hover menus** only run on the desktop viewport with trusted input, over top-level `nav li`
+items whose submenu is hidden until hover. They report "does not open" and "clipped or covered".
+
+## Not done
+
 - AI screenshot review (out of scope for v1).
+- Interactive mask editor for CHK-19.

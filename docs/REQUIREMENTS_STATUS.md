@@ -23,46 +23,46 @@ implemented, cannot be proven by fixtures; the step is in `REAL_STORE_VALIDATION
 
 ## Checks
 
-| ID                         | Status   | Evidence / note                                                                                                                                               |
-| -------------------------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| CHK-01 runtime errors      | done     | U: chk01 (kinds, warn visibility, ignore list, collapse); E: broken home rows 1–3.                                                                            |
-| CHK-02 network failures    | done     | U: chk02 (same-origin/CDN/third-party/blocked, merge, ignore); E: row 4.                                                                                      |
-| CHK-03 media               | done     | U: chk03; E: rows 4–6. Video error state: U only.                                                                                                             |
-| CHK-04 links               | done     | U: chk04 (dead anchors, mailto/tel, noopener, broken, cap); E: rows 9–10; clean fixture produces no findings. 429 back-off: implemented, U-untested.          |
-| CHK-05 template leftovers  | done     | U: chk05 (classification); E: row 7.                                                                                                                          |
-| CHK-06 empty content       | done     | U: chk06; E: row 8 (with screenshot).                                                                                                                         |
-| CHK-07 fonts               | done     | U: chk07; E: row 27.                                                                                                                                          |
-| CHK-08 layout              | done     | U: chk08 severity mapping; E: rows 11 (mobile only), 12, 25. Fixed/sticky and clipped-text collection: E only through the clean fixture (no false positives). |
-| CHK-09 interactions        | done     | E: rows 13–18 + clean fixture passes on all viewports. See INT-*.                                                                                             |
-| CHK-10 accessibility       | done     | U: severity mapping, node cap/truncation; E: row 19 (color-contrast, label); clean fixture passes axe A/AA + best-practice.                                   |
-| CHK-11 performance         | done     | U: thresholds grading, lcp-lazy, fetchpriority; E: row 20. Numbers labelled indicative.                                                                       |
-| CHK-12 page basics         | done     | U: chk12; E: row 24.                                                                                                                                          |
-| CHK-13 variants (S)        | done     | U: chk13; E: rows 21–22 and clean product page.                                                                                                               |
-| CHK-14 cart badge (S)      | done     | U: chk14; E: row 23.                                                                                                                                          |
-| CHK-15 search (S)          | done     | E: clean product page (predictive panel + `/search`). Failure paths: U only.                                                                                  |
-| CHK-16 newsletter (S)      | done     | U: chk16 (L1 rules, third party, L2 outcomes); E: row 26 both levels, clean L2 success, unconfirmed L2 never POSTs. Real behaviour: RSV §2.6–2.7.             |
-| CHK-17 cart actions (S)    | done     | U: chk17; E: "cart actions leave the cart exactly as it was", "cancelling mid-run…". Real store: RSV §2.8.                                                    |
-| CHK-18 custom rules (S)    | partial  | U: validation + analyze. The page-side open/close run is not covered end-to-end (no seeded rule in the fixtures).                                             |
-| CHK-19 visual baseline (X) | not done | Stretch; out of v1 scope (DECISIONS).                                                                                                                         |
+| ID                         | Status | Evidence / note                                                                                                                                                                              |
+| -------------------------- | ------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| CHK-01 runtime errors      | done   | U: chk01 (kinds, warn visibility, ignore list, collapse); E: broken home rows 1–3.                                                                                                           |
+| CHK-02 network failures    | done   | U: chk02 (same-origin/CDN/third-party/blocked, merge, ignore); E: row 4.                                                                                                                     |
+| CHK-03 media               | done   | U: chk03; E: rows 4–6. Video error state: U only.                                                                                                                                            |
+| CHK-04 links               | done   | U: chk04 (dead anchors, mailto/tel, noopener, broken, cap); E: rows 9–10; clean fixture produces no findings. 429 back-off: implemented, U-untested.                                         |
+| CHK-05 template leftovers  | done   | U: chk05 (classification); E: row 7.                                                                                                                                                         |
+| CHK-06 empty content       | done   | U: chk06; E: row 8 (with screenshot).                                                                                                                                                        |
+| CHK-07 fonts               | done   | U: chk07; E: row 27.                                                                                                                                                                         |
+| CHK-08 layout              | done   | U: chk08 severity mapping; E: rows 11 (mobile only), 12, 25. Fixed/sticky and clipped-text collection: E only through the clean fixture (no false positives).                                |
+| CHK-09 interactions        | done   | E: rows 13–18 + clean fixture passes on all viewports. See INT-*.                                                                                                                            |
+| CHK-10 accessibility       | done   | U: severity mapping, node cap/truncation; E: row 19 (color-contrast, label); clean fixture passes axe A/AA + best-practice.                                                                  |
+| CHK-11 performance         | done   | U: thresholds grading, lcp-lazy, fetchpriority; E: row 20. Numbers labelled indicative.                                                                                                      |
+| CHK-12 page basics         | done   | U: chk12; E: row 24.                                                                                                                                                                         |
+| CHK-13 variants (S)        | done   | U: chk13; E: rows 21–22 and clean product page.                                                                                                                                              |
+| CHK-14 cart badge (S)      | done   | U: chk14; E: row 23.                                                                                                                                                                         |
+| CHK-15 search (S)          | done   | E: clean product page (predictive panel + `/search`). Failure paths: U only.                                                                                                                 |
+| CHK-16 newsletter (S)      | done   | U: chk16 (L1 rules, third party, L2 outcomes); E: row 26 both levels, clean L2 success, unconfirmed L2 never POSTs. Real behaviour: RSV §2.6–2.7.                                            |
+| CHK-17 cart actions (S)    | done   | U: chk17; E: "cart actions leave the cart exactly as it was", "cancelling mid-run…". Real store: RSV §2.8.                                                                                   |
+| CHK-18 custom rules (S)    | done   | U: validation + analyze; E: "custom rules (CHK-18)" (a working rule passes on clean, a dead close control is reported on broken).                                                            |
+| CHK-19 visual baseline (X) | done   | U: chk19 analyze; E: "visual baseline (CHK-19)" (save baseline from the report, match, then catch a seeded banner). Masking is by selector list (options); there is no UI for drawing masks. |
 
 ## Interaction engine and safety
 
-| ID                              | Status   | Evidence / note                                                                                                                                     |
-| ------------------------------- | -------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
-| INT-1 discovery                 | done     | E: engine finds menu/search/cart/accordion/carousel/quick triggers on clean; denylisted controls excluded (note "refused by the click denylist").   |
-| INT-2 open test                 | done     | E: `interaction/trigger-no-effect` (row 17).                                                                                                        |
-| INT-3 close tests               | done     | E: rows 13–16; backdrop (Info) and focus (Info) emitted on the broken fixture.                                                                      |
-| INT-4 restore                   | done     | E: clean fixture leaves state restorable on all viewports; reload-and-resume path exercised by the blocked `/checkout` redirect on the broken home. |
-| INT-5 carousels/tabs/accordions | done     | E: row 18; tabs on `/pages/about` pass; accordions are disclosures.                                                                                 |
-| INT-6 hover menus (X)           | not done | Stretch; out of v1 scope.                                                                                                                           |
-| SAF-1 click denylist            | done     | U: core "click denylist"; E: sentinels (zero `/account/logout`, zero click beacons).                                                                |
-| SAF-2 no form submits           | done     | E: zero POSTs with opt-ins off (clean + broken).                                                                                                    |
-| SAF-3 checkout off limits       | done     | E: zero hits on `/checkout`, `safety/left-safe-zone` recorded when a script navigates there.                                                        |
-| SAF-4 unexpected navigation     | done     | E: same scenario; `interaction/unexpected-navigation` for same-document URL changes is U-untested.                                                  |
-| SAF-5 cart cleanup              | done     | E: restore after run and after Cancel.                                                                                                              |
-| SAF-6 no outside traffic        | done     | U: prod build has no eval/remote script; CSP asserted.                                                                                              |
-| SAF-7 rate limiting             | done     | 150 ms spacing for links and sitemap fetches; 429 handling for both. Not unit tested.                                                               |
-| SAF-8 least privilege           | done     | U: prod-build test (debugger and host access optional); debugger asked only when needed (U: run-config).                                            |
+| ID                              | Status | Evidence / note                                                                                                                                                                            |
+| ------------------------------- | ------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| INT-1 discovery                 | done   | E: engine finds menu/search/cart/accordion/carousel/quick triggers on clean; denylisted controls excluded (note "refused by the click denylist").                                          |
+| INT-2 open test                 | done   | E: `interaction/trigger-no-effect` (row 17).                                                                                                                                               |
+| INT-3 close tests               | done   | E: rows 13–16; backdrop (Info) and focus (Info) emitted on the broken fixture.                                                                                                             |
+| INT-4 restore                   | done   | E: clean fixture leaves state restorable on all viewports; reload-and-resume path exercised by the blocked `/checkout` redirect on the broken home.                                        |
+| INT-5 carousels/tabs/accordions | done   | E: row 18; tabs on `/pages/about` pass; accordions are disclosures.                                                                                                                        |
+| INT-6 hover menus (X)           | done   | E: broken home reports `interaction/hover-menu-no-effect` on desktop only; the clean fixture's hover submenu passes. Needs the debugger (trusted mouse move); silently skipped without it. |
+| SAF-1 click denylist            | done   | U: core "click denylist"; E: sentinels (zero `/account/logout`, zero click beacons).                                                                                                       |
+| SAF-2 no form submits           | done   | E: zero POSTs with opt-ins off (clean + broken).                                                                                                                                           |
+| SAF-3 checkout off limits       | done   | E: zero hits on `/checkout`, `safety/left-safe-zone` recorded when a script navigates there.                                                                                               |
+| SAF-4 unexpected navigation     | done   | E: same scenario; `interaction/unexpected-navigation` for same-document URL changes is U-untested.                                                                                         |
+| SAF-5 cart cleanup              | done   | E: restore after run and after Cancel.                                                                                                                                                     |
+| SAF-6 no outside traffic        | done   | U: prod build has no eval/remote script; CSP asserted.                                                                                                                                     |
+| SAF-7 rate limiting             | done   | 150 ms spacing for links and sitemap fetches; 429 handling for both. Not unit tested.                                                                                                      |
+| SAF-8 least privilege           | done   | U: prod-build test (debugger and host access optional); debugger asked only when needed (U: run-config).                                                                                   |
 
 ## Report, options, non-functional
 
