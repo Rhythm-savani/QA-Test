@@ -1,0 +1,8 @@
+dist
+release
+node_modules
+docs/design
+package-lock.json
+storefront-qa-build-prompt.md
+test-results
+playwright-report

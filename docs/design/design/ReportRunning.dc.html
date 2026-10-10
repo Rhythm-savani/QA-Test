@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Storefront QA run in progress</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap">
+<style>
+body{margin:0}
+button{font-family:inherit}
+button:focus-visible,a:focus-visible{outline:2px solid #0B6F6E;outline-offset:2px}
+a{color:#0B6F6E}a:hover{color:#084E4D}
+</style>
+</helmet>
+<div style="min-height:900px;background:#F3F5F8;color:#14171C;font-family:'Instrument Sans',system-ui,sans-serif">
+
+<header style="background:#FFFFFF;border-bottom:1px solid #DDE1E8">
+<div style="max-width:1240px;margin:0 auto;padding:8px 20px;min-height:40px;display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+<svg width="26" height="26" viewBox="0 0 28 28" aria-hidden="true"><rect width="28" height="28" rx="7" fill="#14171C"/><path d="M8 14.5l4 4 8-9" stroke="#5EE0D6" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+<div style="font-size:15px;font-weight:700;letter-spacing:-0.01em">Storefront QA</div>
+<div style="color:#8590A2">/</div>
+<div style="font-size:14px;color:#566070">Run report</div>
+<div style="flex-grow:1"></div>
+<div style="display:flex;align-items:center;gap:7px;background:#E2F3F2;color:#0B4F4E;border-radius:999px;padding:5px 12px;font-size:12.5px;font-weight:600">
+<svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="9" stroke="#9FD5D2" stroke-width="3"/><path d="M12 3a9 9 0 0 1 9 9" stroke="#0B6F6E" stroke-width="3" stroke-linecap="round"/></svg>Running
+</div>
+</div>
+</header>
+
+<main style="max-width:1240px;margin:0 auto;padding:24px 20px 56px 20px;display:flex;flex-direction:column;gap:20px">
+
+<section aria-labelledby="run-title" style="background:#FFFFFF;border:1px solid #DDE1E8;border-radius:14px;padding:22px;display:flex;flex-direction:column;gap:16px">
+<div style="display:flex;flex-wrap:wrap;gap:16px;align-items:flex-start">
+<div style="flex:1 1 360px;min-width:0">
+<h1 id="run-title" style="margin:0;font-size:22px;line-height:1.25;font-weight:700;letter-spacing:-0.015em">Full check is running</h1>
+<div style="margin-top:4px;font-size:13.5px;color:#566070;line-height:1.5">northwind-demo.myshopify.com · Preview theme #148302771 · Desktop and Mobile · 14 pages sampled from the sitemap</div>
+</div>
+<button type="button" style="height:40px;padding:0 16px;border-radius:10px;border:1px solid #C5CBD6;background:#FFFFFF;color:#14171C;font-size:13.5px;font-weight:600;display:flex;align-items:center;gap:8px;cursor:pointer">
+<svg width="12" height="12" viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="5" width="14" height="14" rx="2" fill="currentColor"/></svg>Cancel run</button>
+</div>
+
+<div>
+<div style="display:flex;justify-content:space-between;align-items:baseline;font-size:13px;margin-bottom:8px;flex-wrap:wrap;gap:4px">
+<div style="font-weight:700">Page 6 of 14</div>
+<div style="color:#566070">1 min 34 s elapsed</div>
+</div>
+<div role="progressbar" aria-label="Run progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="38" style="height:10px;border-radius:5px;background:#E4E7EE;overflow:hidden">
+<div style="width:38%;height:10px;border-radius:5px;background:#0B6F6E"></div>
+</div>
+<div style="margin-top:12px;display:flex;flex-wrap:wrap;gap:8px 16px;align-items:baseline;font-size:13px;color:#3A4352">
+<span style="font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;background:#EEF0F4;border-radius:4px;padding:2px 7px">/products/signet-ring?preview_theme_id=148302771</span>
+<span>Interaction tests · trigger 7 of 22 · pressing Escape on the size drawer</span>
+</div>
+</div>
+
+<div style="display:flex;flex-wrap:wrap;gap:8px">
+<div style="display:flex;align-items:center;gap:6px;background:#F1F3F7;border-radius:8px;padding:6px 10px;font-size:12.5px;color:#3A4352"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#17734A" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7"/></svg>Your own tab isn't touched</div>
+<div style="display:flex;align-items:center;gap:6px;background:#F1F3F7;border-radius:8px;padding:6px 10px;font-size:12.5px;color:#3A4352"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#17734A" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7"/></svg>Results are kept if you cancel</div>
+<div style="display:flex;align-items:center;gap:6px;background:#F1F3F7;border-radius:8px;padding:6px 10px;font-size:12.5px;color:#3A4352"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#17734A" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7"/></svg>Theme #148302771 active on 6 of 6 pages</div>
+</div>
+</section>
+
+<div style="display:flex;flex-wrap:wrap;gap:20px;align-items:flex-start">
+
+<section aria-labelledby="pages-title" style="flex:999 1 560px;min-width:0;background:#FFFFFF;border:1px solid #DDE1E8;border-radius:14px;overflow:hidden">
+<div style="padding:16px 16px 12px 16px;display:flex;align-items:baseline;gap:10px;flex-wrap:wrap">
+<h2 id="pages-title" style="margin:0;font-size:16px;font-weight:700">Pages</h2>
+<div style="font-size:13px;color:#566070">5 done · 1 running · 8 queued</div>
+</div>
+
+<div style="display:flex;align-items:center;gap:12px;padding:8px 16px;min-height:28px;border-top:1px solid #E8EBF0;flex-wrap:wrap">
+<svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="#E3F4EA"/><path d="M7.5 12.5l3 3 6-6.5" stroke="#17734A" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+<div style="flex:1 1 200px;min-width:0;display:flex;align-items:baseline;gap:10px;flex-wrap:wrap"><span style="font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px">/</span><span style="font-size:12.5px;color:#566070">Home</span></div>
+<div style="font-size:12.5px;display:flex;gap:10px"><span style="color:#B42318;font-weight:600">1 error</span><span style="color:#8A5200;font-weight:600">2 warnings</span><span style="color:#2757C4;font-weight:600">1 info</span></div>
+</div>
+<div style="display:flex;align-items:center;gap:12px;padding:8px 16px;min-height:28px;border-top:1px solid #E8EBF0;flex-wrap:wrap">
+<svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="#E3F4EA"/><path d="M7.5 12.5l3 3 6-6.5" stroke="#17734A" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+<div style="flex:1 1 200px;min-width:0;display:flex;align-items:baseline;gap:10px;flex-wrap:wrap"><span style="font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px">/collections/rings</span><span style="font-size:12.5px;color:#566070">Collection</span></div>
+<div style="font-size:12.5px;display:flex;gap:10px"><span style="color:#8A5200;font-weight:600">1 warning</span></div>
+</div>
+<div style="display:flex;align-items:center;gap:12px;padding:8px 16px;min-height:28px;border-top:1px solid #E8EBF0;flex-wrap:wrap">
+<svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="#E3F4EA"/><path d="M7.5 12.5l3 3 6-6.5" stroke="#17734A" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+<div style="flex:1 1 200px;min-width:0;display:flex;align-items:baseline;gap:10px;flex-wrap:wrap"><span style="font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px">/collections/necklaces</span><span style="font-size:12.5px;color:#566070">Collection</span></div>
+<div style="font-size:12.5px;display:flex;gap:10px"><span style="color:#17734A;font-weight:600">Clean</span></div>
+</div>
+<div style="display:flex;align-items:center;gap:12px;padding:8px 16px;min-height:28px;border-top:1px solid #E8EBF0;flex-wrap:wrap">
+<svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="#E3F4EA"/><path d="M7.5 12.5l3 3 6-6.5" stroke="#17734A" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+<div style="flex:1 1 200px;min-width:0;display:flex;align-items:baseline;gap:10px;flex-wrap:wrap"><span style="font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px">/collections/earrings</span><span style="font-size:12.5px;color:#566070">Collection</span></div>
+<div style="font-size:12.5px;display:flex;gap:10px"><span style="color:#8A5200;font-weight:600">2 warnings</span></div>
+</div>
+<div style="display:flex;align-items:center;gap:12px;padding:8px 16px;min-height:28px;border-top:1px solid #E8EBF0;flex-wrap:wrap">
+<svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="#E3F4EA"/><path d="M7.5 12.5l3 3 6-6.5" stroke="#17734A" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+<div style="flex:1 1 200px;min-width:0;display:flex;align-items:baseline;gap:10px;flex-wrap:wrap"><span style="font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px">/products/pearl-studs</span><span style="font-size:12.5px;color:#566070">Product</span></div>
+<div style="font-size:12.5px;display:flex;gap:10px"><span style="color:#B42318;font-weight:600">2 errors</span><span style="color:#8A5200;font-weight:600">3 warnings</span></div>
+</div>
+
+<div style="display:flex;align-items:center;gap:12px;padding:8px 16px;min-height:28px;border-top:1px solid #E8EBF0;background:#F1F9F8;flex-wrap:wrap">
+<svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="9" stroke="#C5E4E2" stroke-width="3"/><path d="M12 3a9 9 0 0 1 9 9" stroke="#0B6F6E" stroke-width="3" stroke-linecap="round"/></svg>
+<div style="flex:1 1 200px;min-width:0;display:flex;align-items:baseline;gap:10px;flex-wrap:wrap"><span style="font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;font-weight:500">/products/signet-ring</span><span style="font-size:12.5px;color:#566070">Product</span></div>
+<div style="font-size:12.5px;color:#0B4F4E;font-weight:600">Running · Mobile 390 next</div>
+</div>
+
+<div style="display:flex;align-items:center;gap:12px;padding:8px 16px;min-height:28px;border-top:1px solid #E8EBF0;flex-wrap:wrap">
+<svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="8.5" stroke="#C5CBD6" stroke-width="2"/></svg>
+<div style="flex:1 1 200px;min-width:0;display:flex;align-items:baseline;gap:10px;flex-wrap:wrap"><span style="font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;color:#566070">/products/stacking-ring</span><span style="font-size:12.5px;color:#566070">Product</span></div>
+<div style="font-size:12.5px;color:#566070">Queued</div>
+</div>
+<div style="display:flex;align-items:center;gap:12px;padding:8px 16px;min-height:28px;border-top:1px solid #E8EBF0;flex-wrap:wrap">
+<svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="8.5" stroke="#C5CBD6" stroke-width="2"/></svg>
+<div style="flex:1 1 200px;min-width:0;display:flex;align-items:baseline;gap:10px;flex-wrap:wrap"><span style="font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;color:#566070">/pages/about</span><span style="font-size:12.5px;color:#566070">Page</span></div>
+<div style="font-size:12.5px;color:#566070">Queued</div>
+</div>
+<div style="display:flex;align-items:center;gap:12px;padding:8px 16px;min-height:28px;border-top:1px solid #E8EBF0;flex-wrap:wrap">
+<svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="8.5" stroke="#C5CBD6" stroke-width="2"/></svg>
+<div style="flex:1 1 200px;min-width:0;display:flex;align-items:baseline;gap:10px;flex-wrap:wrap"><span style="font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;color:#566070">/pages/care-guide</span><span style="font-size:12.5px;color:#566070">Page</span></div>
+<div style="font-size:12.5px;color:#566070">Queued</div>
+</div>
+<div style="display:flex;align-items:center;gap:12px;padding:8px 16px;min-height:28px;border-top:1px solid #E8EBF0;flex-wrap:wrap">
+<svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="8.5" stroke="#C5CBD6" stroke-width="2"/></svg>
+<div style="flex:1 1 200px;min-width:0;display:flex;align-items:baseline;gap:10px;flex-wrap:wrap"><span style="font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;color:#566070">/blogs/journal</span><span style="font-size:12.5px;color:#566070">Blog</span></div>
+<div style="font-size:12.5px;color:#566070">Queued</div>
+</div>
+<div style="display:flex;align-items:center;gap:12px;padding:8px 16px;min-height:28px;border-top:1px solid #E8EBF0;flex-wrap:wrap">
+<svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="8.5" stroke="#C5CBD6" stroke-width="2"/></svg>
+<div style="flex:1 1 200px;min-width:0;display:flex;align-items:baseline;gap:10px;flex-wrap:wrap"><span style="font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;color:#566070">/blogs/journal/how-to-layer-chains</span><span style="font-size:12.5px;color:#566070">Article</span></div>
+<div style="font-size:12.5px;color:#566070">Queued</div>
+</div>
+<div style="display:flex;align-items:center;gap:12px;padding:8px 16px;min-height:28px;border-top:1px solid #E8EBF0;flex-wrap:wrap">
+<svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="8.5" stroke="#C5CBD6" stroke-width="2"/></svg>
+<div style="flex:1 1 200px;min-width:0;display:flex;align-items:baseline;gap:10px;flex-wrap:wrap"><span style="font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;color:#566070">/cart</span><span style="font-size:12.5px;color:#566070">Cart</span></div>
+<div style="font-size:12.5px;color:#566070">Queued</div>
+</div>
+<div style="display:flex;align-items:center;gap:12px;padding:8px 16px;min-height:28px;border-top:1px solid #E8EBF0;flex-wrap:wrap">
+<svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="8.5" stroke="#C5CBD6" stroke-width="2"/></svg>
+<div style="flex:1 1 200px;min-width:0;display:flex;align-items:baseline;gap:10px;flex-wrap:wrap"><span style="font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;color:#566070">/search?q=a</span><span style="font-size:12.5px;color:#566070">Search</span></div>
+<div style="font-size:12.5px;color:#566070">Queued</div>
+</div>
+<div style="display:flex;align-items:center;gap:12px;padding:8px 16px;min-height:28px;border-top:1px solid #E8EBF0;flex-wrap:wrap">
+<svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="8.5" stroke="#C5CBD6" stroke-width="2"/></svg>
+<div style="flex:1 1 200px;min-width:0;display:flex;align-items:baseline;gap:10px;flex-wrap:wrap"><span style="font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;color:#566070">/qa-page-that-does-not-exist</span><span style="font-size:12.5px;color:#566070">404 page</span></div>
+<div style="font-size:12.5px;color:#566070">Queued</div>
+</div>
+</section>
+
+<aside aria-label="Live results" style="flex:1 1 320px;min-width:0;display:flex;flex-direction:column;gap:20px">
+
+<section aria-labelledby="sofar-title" style="background:#FFFFFF;border:1px solid #DDE1E8;border-radius:14px;padding:16px">
+<h2 id="sofar-title" style="margin:0 0 12px 0;font-size:16px;font-weight:700">Found so far</h2>
+<div style="display:grid;grid-template-columns:repeat(3, minmax(0, 1fr));gap:8px">
+<div style="background:#FDECEA;border-radius:10px;padding:10px 12px"><div style="font-size:26px;font-weight:700;color:#B42318;line-height:1.1">3</div><div style="font-size:12px;font-weight:600;color:#B42318">Errors</div></div>
+<div style="background:#FFF3DC;border-radius:10px;padding:10px 12px"><div style="font-size:26px;font-weight:700;color:#8A5200;line-height:1.1">8</div><div style="font-size:12px;font-weight:600;color:#8A5200">Warnings</div></div>
+<div style="background:#E8EFFD;border-radius:10px;padding:10px 12px"><div style="font-size:26px;font-weight:700;color:#2757C4;line-height:1.1">1</div><div style="font-size:12px;font-weight:600;color:#2757C4">Info</div></div>
+</div>
+<div style="margin-top:10px;font-size:12.5px;color:#566070">Counted per page, before similar findings are grouped in the final report.</div>
+</section>
+
+<section aria-labelledby="latest-title" style="background:#FFFFFF;border:1px solid #DDE1E8;border-radius:14px;padding:16px">
+<h2 id="latest-title" style="margin:0 0 12px 0;font-size:16px;font-weight:700">Latest findings</h2>
+<div style="display:flex;flex-direction:column">
+
+<div style="padding:10px 0;border-top:1px solid #E8EBF0">
+<div style="display:flex;align-items:center;gap:6px;color:#B42318;font-size:12px;font-weight:700"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9 9l6 6M15 9l-6 6"/></svg>Error</div>
+<div style="font-size:13.5px;font-weight:600;margin-top:3px">Variant price differs from product JSON</div>
+<div style="font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12px;color:#566070;margin-top:2px">/products/pearl-studs</div>
+</div>
+<div style="padding:10px 0;border-top:1px solid #E8EBF0">
+<div style="display:flex;align-items:center;gap:6px;color:#B42318;font-size:12px;font-weight:700"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9 9l6 6M15 9l-6 6"/></svg>Error</div>
+<div style="font-size:13.5px;font-weight:600;margin-top:3px">Page scroll stays locked after closing the cart drawer</div>
+<div style="font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12px;color:#566070;margin-top:2px">/products/pearl-studs</div>
+</div>
+<div style="padding:10px 0;border-top:1px solid #E8EBF0">
+<div style="display:flex;align-items:center;gap:6px;color:#8A5200;font-size:12px;font-weight:700"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4l9 16H3z"/><path d="M12 10v4M12 17.5v.01"/></svg>Warning</div>
+<div style="font-size:13.5px;font-weight:600;margin-top:3px">Image has no alt attribute</div>
+<div style="font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12px;color:#566070;margin-top:2px">/collections/earrings</div>
+</div>
+<div style="padding:10px 0 0 0;border-top:1px solid #E8EBF0">
+<div style="display:flex;align-items:center;gap:6px;color:#2757C4;font-size:12px;font-weight:700"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8v.01"/></svg>Info</div>
+<div style="font-size:13.5px;font-weight:600;margin-top:3px">Request blocked by the browser (analytics script)</div>
+<div style="font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12px;color:#566070;margin-top:2px">/</div>
+</div>
+
+</div>
+</section>
+
+</aside>
+
+</div>
+</main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1280,"height":900}}'>
+class Component extends DCLogic {
+renderVals() {
+return {};
+}
+}
+</script>
+</body>
+</html>

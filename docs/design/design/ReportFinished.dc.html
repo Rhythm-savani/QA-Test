@@ -1,0 +1,281 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Storefront QA report</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap">
+<style>
+body{margin:0}
+button,input,select{font-family:inherit}
+button:focus-visible,a:focus-visible,summary:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid #0B6F6E;outline-offset:2px}
+summary{list-style:none}
+summary::-webkit-details-marker{display:none}
+a{color:#0B6F6E}a:hover{color:#084E4D}
+</style>
+</helmet>
+<div style="min-height:1960px;background:#F3F5F8;color:#14171C;font-family:'Instrument Sans',system-ui,sans-serif">
+
+<header style="background:#FFFFFF;border-bottom:1px solid #DDE1E8">
+<div style="max-width:1240px;margin:0 auto;padding:8px 20px;min-height:40px;display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+<svg width="26" height="26" viewBox="0 0 28 28" aria-hidden="true"><rect width="28" height="28" rx="7" fill="#14171C"/><path d="M8 14.5l4 4 8-9" stroke="#5EE0D6" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+<div style="font-size:15px;font-weight:700;letter-spacing:-0.01em">Storefront QA</div>
+<div style="color:#8590A2">/</div>
+<div style="font-size:14px;color:#566070">Run report</div>
+<div style="flex-grow:1"></div>
+<button type="button" style="height:36px;padding:0 14px;border-radius:9px;border:1px solid #C5CBD6;background:#FFFFFF;color:#14171C;font-size:13px;font-weight:600;cursor:pointer">Compare with previous run</button>
+<button type="button" style="height:36px;padding:0 12px 0 14px;border-radius:9px;border:1px solid #C5CBD6;background:#FFFFFF;color:#14171C;font-size:13px;font-weight:600;display:flex;align-items:center;gap:6px;cursor:pointer">Export<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>
+<button type="button" style="height:36px;padding:0 16px;border-radius:9px;border:none;background:#14171C;color:#FFFFFF;font-size:13px;font-weight:700;cursor:pointer">Run again</button>
+</div>
+</header>
+
+<main style="max-width:1240px;margin:0 auto;padding:24px 20px 64px 20px;display:flex;flex-direction:column;gap:20px">
+
+<section aria-labelledby="rep-title" style="background:#FFFFFF;border:1px solid #DDE1E8;border-radius:14px;padding:22px;display:flex;flex-direction:column;gap:18px">
+<div style="display:flex;flex-wrap:wrap;gap:12px;align-items:center">
+<h1 id="rep-title" style="margin:0;font-size:22px;line-height:1.25;font-weight:700;letter-spacing:-0.015em;flex:1 1 320px">northwind-demo.myshopify.com</h1>
+<div style="display:flex;align-items:center;gap:6px;background:#E3F4EA;color:#17734A;border-radius:8px;padding:5px 10px;font-size:12.5px;font-weight:600"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7"/></svg>Theme #148302771 on all 14 pages</div>
+</div>
+<div style="display:flex;flex-wrap:wrap;gap:16px 28px">
+<div style="flex:1 1 180px"><div style="font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#566070">Mode</div><div style="font-size:14px;font-weight:600;margin-top:3px">Full · 14 pages</div></div>
+<div style="flex:1 1 180px"><div style="font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#566070">Viewports</div><div style="font-size:14px;font-weight:600;margin-top:3px">Desktop 1440 · Mobile 390</div></div>
+<div style="flex:1 1 180px"><div style="font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#566070">Finished</div><div style="font-size:14px;font-weight:600;margin-top:3px">10 Oct 2026, 10:24 · 4 min 12 s</div></div>
+<div style="flex:1 1 180px"><div style="font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#566070">Theme</div><div style="font-size:14px;font-weight:600;margin-top:3px">Dawn · Preview</div></div>
+<div style="flex:1 1 180px"><div style="font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#566070">Extension</div><div style="font-size:14px;font-weight:600;margin-top:3px">Storefront QA 1.0.0</div></div>
+</div>
+<div style="font-size:13px;line-height:1.55;color:#566070;border-top:1px solid #E8EBF0;padding-top:12px"><span style="font-weight:600;color:#3A4352">Checks on:</span> Health, Media, Links, Content, Layout, Interactions, Accessibility, Performance, Page basics, Shopify reads. <span style="font-weight:600;color:#3A4352">Off:</span> Newsletter form, Cart actions, Custom rules.</div>
+</section>
+
+<div style="display:flex;flex-wrap:wrap;gap:20px;align-items:stretch">
+
+<section aria-labelledby="sum-title" style="flex:999 1 560px;min-width:0;background:#FFFFFF;border:1px solid #DDE1E8;border-radius:14px;padding:18px;display:flex;flex-direction:column;gap:14px">
+<div style="display:flex;align-items:baseline;gap:10px;flex-wrap:wrap">
+<h2 id="sum-title" style="margin:0;font-size:16px;font-weight:700">Summary</h2>
+<div style="font-size:13px;color:#566070">17 issue groups from 52 occurrences across 14 pages and 2 viewports</div>
+</div>
+<div style="display:flex;flex-wrap:wrap;gap:10px">
+<div style="flex:1 1 130px;background:#FDECEA;border-radius:10px;padding:12px 14px"><div style="font-size:30px;font-weight:700;color:#B42318;line-height:1.1">5</div><div style="font-size:12.5px;font-weight:700;color:#B42318">Errors</div></div>
+<div style="flex:1 1 130px;background:#FFF3DC;border-radius:10px;padding:12px 14px"><div style="font-size:30px;font-weight:700;color:#8A5200;line-height:1.1">8</div><div style="font-size:12.5px;font-weight:700;color:#8A5200">Warnings</div></div>
+<div style="flex:1 1 130px;background:#E8EFFD;border-radius:10px;padding:12px 14px"><div style="font-size:30px;font-weight:700;color:#2757C4;line-height:1.1">4</div><div style="font-size:12.5px;font-weight:700;color:#2757C4">Info</div></div>
+<div style="flex:1 1 130px;background:#E3F4EA;border-radius:10px;padding:12px 14px"><div style="font-size:30px;font-weight:700;color:#17734A;line-height:1.1">143</div><div style="font-size:12.5px;font-weight:700;color:#17734A">Checks passed</div></div>
+<div style="flex:1 1 130px;background:#EEF0F4;border-radius:10px;padding:12px 14px"><div style="font-size:30px;font-weight:700;color:#3A4352;line-height:1.1">2</div><div style="font-size:12.5px;font-weight:700;color:#3A4352">Skipped</div></div>
+</div>
+</section>
+
+<section aria-labelledby="cat-title" style="flex:1 1 340px;min-width:0;background:#FFFFFF;border:1px solid #DDE1E8;border-radius:14px;padding:18px">
+<h2 id="cat-title" style="margin:0 0 12px 0;font-size:16px;font-weight:700">Issue groups by category</h2>
+<div style="display:flex;flex-direction:column;gap:7px;font-size:13px">
+<div style="display:flex;align-items:center;gap:10px"><div style="width:104px;color:#3A4352">Interaction</div><div style="flex-grow:1;height:8px;border-radius:4px;background:#E4E7EE"><div style="width:100%;height:8px;border-radius:4px;background:#0B6F6E"></div></div><div style="width:18px;text-align:right;font-weight:600">4</div></div>
+<div style="display:flex;align-items:center;gap:10px"><div style="width:104px;color:#3A4352">Media</div><div style="flex-grow:1;height:8px;border-radius:4px;background:#E4E7EE"><div style="width:75%;height:8px;border-radius:4px;background:#0B6F6E"></div></div><div style="width:18px;text-align:right;font-weight:600">3</div></div>
+<div style="display:flex;align-items:center;gap:10px"><div style="width:104px;color:#3A4352">Health</div><div style="flex-grow:1;height:8px;border-radius:4px;background:#E4E7EE"><div style="width:75%;height:8px;border-radius:4px;background:#0B6F6E"></div></div><div style="width:18px;text-align:right;font-weight:600">3</div></div>
+<div style="display:flex;align-items:center;gap:10px"><div style="width:104px;color:#3A4352">Accessibility</div><div style="flex-grow:1;height:8px;border-radius:4px;background:#E4E7EE"><div style="width:75%;height:8px;border-radius:4px;background:#0B6F6E"></div></div><div style="width:18px;text-align:right;font-weight:600">3</div></div>
+<div style="display:flex;align-items:center;gap:10px"><div style="width:104px;color:#3A4352">Layout</div><div style="flex-grow:1;height:8px;border-radius:4px;background:#E4E7EE"><div style="width:50%;height:8px;border-radius:4px;background:#0B6F6E"></div></div><div style="width:18px;text-align:right;font-weight:600">2</div></div>
+<div style="display:flex;align-items:center;gap:10px"><div style="width:104px;color:#3A4352">Performance</div><div style="flex-grow:1;height:8px;border-radius:4px;background:#E4E7EE"><div style="width:25%;height:8px;border-radius:4px;background:#0B6F6E"></div></div><div style="width:18px;text-align:right;font-weight:600">1</div></div>
+<div style="display:flex;align-items:center;gap:10px"><div style="width:104px;color:#3A4352">Shopify</div><div style="flex-grow:1;height:8px;border-radius:4px;background:#E4E7EE"><div style="width:25%;height:8px;border-radius:4px;background:#0B6F6E"></div></div><div style="width:18px;text-align:right;font-weight:600">1</div></div>
+</div>
+</section>
+
+</div>
+
+<div style="display:flex;flex-wrap:wrap;gap:20px;align-items:flex-start">
+
+<section aria-labelledby="find-title" style="flex:999 1 600px;min-width:0;display:flex;flex-direction:column;gap:14px">
+
+<div style="background:#FFFFFF;border:1px solid #DDE1E8;border-radius:14px;padding:14px 16px;display:flex;flex-wrap:wrap;gap:12px;align-items:flex-end">
+<h2 id="find-title" style="margin:0;font-size:16px;font-weight:700;flex:1 1 100%">Findings</h2>
+<div role="group" aria-label="Severity filter" style="display:flex;gap:2px;background:#E4E7EE;border-radius:10px;padding:3px">
+<button type="button" aria-pressed="true" style="height:30px;padding:0 12px;border:none;border-radius:8px;background:#FFFFFF;color:#14171C;font-size:12.5px;font-weight:700;box-shadow:0 1px 2px rgba(20,23,28,0.18);cursor:pointer">All 17</button>
+<button type="button" aria-pressed="false" style="height:30px;padding:0 12px;border:none;border-radius:8px;background:transparent;color:#566070;font-size:12.5px;font-weight:600;cursor:pointer">Errors 5</button>
+<button type="button" aria-pressed="false" style="height:30px;padding:0 12px;border:none;border-radius:8px;background:transparent;color:#566070;font-size:12.5px;font-weight:600;cursor:pointer">Warnings 8</button>
+<button type="button" aria-pressed="false" style="height:30px;padding:0 12px;border:none;border-radius:8px;background:transparent;color:#566070;font-size:12.5px;font-weight:600;cursor:pointer">Info 4</button>
+</div>
+<label style="display:flex;flex-direction:column;gap:4px;font-size:11.5px;font-weight:600;color:#566070">Category
+<select style="height:34px;border:1px solid #C5CBD6;border-radius:8px;padding:0 10px;background:#FFFFFF;font-size:13px;color:#14171C"><option>All categories</option></select></label>
+<label style="display:flex;flex-direction:column;gap:4px;font-size:11.5px;font-weight:600;color:#566070">Page
+<select style="height:34px;border:1px solid #C5CBD6;border-radius:8px;padding:0 10px;background:#FFFFFF;font-size:13px;color:#14171C"><option>All 14 pages</option></select></label>
+<label style="display:flex;flex-direction:column;gap:4px;font-size:11.5px;font-weight:600;color:#566070">Viewport
+<select style="height:34px;border:1px solid #C5CBD6;border-radius:8px;padding:0 10px;background:#FFFFFF;font-size:13px;color:#14171C"><option>Both</option></select></label>
+<label style="display:flex;flex-direction:column;gap:4px;font-size:11.5px;font-weight:600;color:#566070;flex:1 1 200px">Search
+<input type="search" placeholder="Rule, selector or text" style="height:34px;border:1px solid #C5CBD6;border-radius:8px;padding:0 10px;background:#FFFFFF;font-size:13px;color:#14171C;min-width:0"></label>
+</div>
+
+<div style="background:#FFFFFF;border:1px solid #DDE1E8;border-radius:14px;overflow:hidden">
+
+<details open style="border-top:none">
+<summary style="cursor:pointer;padding:14px 16px;display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center;background:#FBFBFD">
+<span style="display:inline-flex;align-items:center;gap:5px;height:24px;padding:0 9px;border-radius:6px;background:#FDECEA;color:#B42318;font-size:12px;font-weight:700"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9 9l6 6M15 9l-6 6"/></svg>Error</span>
+<span style="flex:1 1 260px;font-size:14.5px;font-weight:700;min-width:0">Close button does nothing in the quote request modal</span>
+<span style="font-family:'JetBrains Mono',ui-monospace,monospace;font-size:11.5px;background:#EEF0F4;color:#3A4352;border-radius:4px;padding:2px 6px">interaction/close-no-effect</span>
+<span style="font-size:12.5px;color:#566070">3 pages · Desktop, Mobile</span>
+<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#566070" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 15l6-6 6 6"/></svg>
+</summary>
+<div style="padding:4px 16px 20px 16px;display:flex;flex-wrap:wrap;gap:20px;background:#FBFBFD">
+<div style="flex:1 1 360px;min-width:0;display:flex;flex-direction:column;gap:14px">
+<div>
+<div style="font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#566070;margin-bottom:4px">What happened</div>
+<div style="font-size:13.5px;line-height:1.55;color:#3A4352">The close control inside the open modal was clicked. After 1.5 s the modal was still open. The control is visible and not covered, so the click is reaching it.</div>
+</div>
+<div>
+<div style="font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#566070;margin-bottom:4px">Seen on</div>
+<div style="display:flex;flex-direction:column;gap:4px;font-size:12.5px">
+<div style="display:flex;gap:8px;align-items:baseline;flex-wrap:wrap"><span style="font-family:'JetBrains Mono',ui-monospace,monospace">/products/pearl-studs</span><span style="color:#566070">Desktop, Mobile</span></div>
+<div style="display:flex;gap:8px;align-items:baseline;flex-wrap:wrap"><span style="font-family:'JetBrains Mono',ui-monospace,monospace">/products/signet-ring</span><span style="color:#566070">Desktop</span></div>
+<div style="display:flex;gap:8px;align-items:baseline;flex-wrap:wrap"><span style="font-family:'JetBrains Mono',ui-monospace,monospace">/products/stacking-ring</span><span style="color:#566070">Desktop</span></div>
+</div>
+</div>
+<div>
+<div style="font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#566070;margin-bottom:4px">Element</div>
+<div style="font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12px;background:#14171C;color:#E7EAF0;border-radius:8px;padding:10px 12px;line-height:1.6;overflow-wrap:anywhere">quote-modal .quote-modal__close<br><span style="color:#8FA0B8">&lt;button class="quote-modal__close" type="button" aria-label="Close"&gt;…&lt;/button&gt;</span></div>
+</div>
+<div style="background:#E8EFFD;border-radius:8px;padding:10px 12px;font-size:13px;line-height:1.5;color:#1F3F8F"><span style="font-weight:700">Hint:</span> Dawn-style modals usually close through a method on their custom element. Check the click handler is still attached after the modal is re-rendered by the Section Rendering API.</div>
+</div>
+<div style="flex:0 1 260px;min-width:220px">
+<div style="font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#566070;margin-bottom:6px">Evidence · Mobile 390</div>
+<div style="width:220px;max-width:100%;height:380px;box-sizing:border-box;border:1px solid #C5CBD6;border-radius:14px;background:#FFFFFF;position:relative;overflow:hidden">
+<div style="height:34px;background:#EEF0F4"></div>
+<div style="margin:10px;height:120px;border-radius:8px;background:#DDE1E8"></div>
+<div style="margin:10px;height:10px;width:60%;border-radius:4px;background:#DDE1E8"></div>
+<div style="margin:10px;height:10px;width:40%;border-radius:4px;background:#DDE1E8"></div>
+<div style="position:absolute;left:0;top:0;right:0;bottom:0;background:rgba(20,23,28,0.45)"></div>
+<div style="position:absolute;left:14px;right:14px;top:70px;height:230px;border-radius:12px;background:#FFFFFF;box-shadow:0 8px 24px rgba(20,23,28,0.3)">
+<div style="position:absolute;right:8px;top:8px;width:30px;height:30px;border-radius:6px;outline:3px solid #B42318;outline-offset:2px;display:flex;align-items:center;justify-content:center;color:#14171C;font-size:18px;line-height:1">×</div>
+<div style="margin:18px 14px 0 14px;height:12px;width:60%;border-radius:4px;background:#DDE1E8"></div>
+<div style="margin:14px;height:34px;border-radius:6px;background:#EEF0F4"></div>
+<div style="margin:14px;height:34px;border-radius:6px;background:#EEF0F4"></div>
+<div style="margin:14px;height:36px;border-radius:8px;background:#14171C"></div>
+</div>
+</div>
+</div>
+</div>
+</details>
+
+<details style="border-top:1px solid #E8EBF0">
+<summary style="cursor:pointer;padding:14px 16px;display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center">
+<span style="display:inline-flex;align-items:center;gap:5px;height:24px;padding:0 9px;border-radius:6px;background:#FDECEA;color:#B42318;font-size:12px;font-weight:700"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9 9l6 6M15 9l-6 6"/></svg>Error</span>
+<span style="flex:1 1 260px;font-size:14.5px;font-weight:700;min-width:0">Page scroll stays locked after closing the cart drawer</span>
+<span style="font-family:'JetBrains Mono',ui-monospace,monospace;font-size:11.5px;background:#EEF0F4;color:#3A4352;border-radius:4px;padding:2px 6px">interaction/scroll-lock-stuck</span>
+<span style="font-size:12.5px;color:#566070">6 pages · Desktop, Mobile</span>
+<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#566070" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+</summary>
+</details>
+
+<details style="border-top:1px solid #E8EBF0">
+<summary style="cursor:pointer;padding:14px 16px;display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center">
+<span style="display:inline-flex;align-items:center;gap:5px;height:24px;padding:0 9px;border-radius:6px;background:#FDECEA;color:#B42318;font-size:12px;font-weight:700"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9 9l6 6M15 9l-6 6"/></svg>Error</span>
+<span style="flex:1 1 260px;font-size:14.5px;font-weight:700;min-width:0">Page is wider than the screen at 390 px</span>
+<span style="font-family:'JetBrains Mono',ui-monospace,monospace;font-size:11.5px;background:#EEF0F4;color:#3A4352;border-radius:4px;padding:2px 6px">layout/horizontal-overflow</span>
+<span style="font-size:12.5px;color:#566070">5 pages · Mobile</span>
+<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#566070" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+</summary>
+</details>
+
+<details style="border-top:1px solid #E8EBF0">
+<summary style="cursor:pointer;padding:14px 16px;display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center">
+<span style="display:inline-flex;align-items:center;gap:5px;height:24px;padding:0 9px;border-radius:6px;background:#FDECEA;color:#B42318;font-size:12px;font-weight:700"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9 9l6 6M15 9l-6 6"/></svg>Error</span>
+<span style="flex:1 1 260px;font-size:14.5px;font-weight:700;min-width:0">Variant price differs from product JSON</span>
+<span style="font-family:'JetBrains Mono',ui-monospace,monospace;font-size:11.5px;background:#EEF0F4;color:#3A4352;border-radius:4px;padding:2px 6px">shopify/variant-price-mismatch</span>
+<span style="font-size:12.5px;color:#566070">1 page · Desktop</span>
+<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#566070" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+</summary>
+</details>
+
+<details style="border-top:1px solid #E8EBF0">
+<summary style="cursor:pointer;padding:14px 16px;display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center">
+<span style="display:inline-flex;align-items:center;gap:5px;height:24px;padding:0 9px;border-radius:6px;background:#FFF3DC;color:#8A5200;font-size:12px;font-weight:700"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4l9 16H3z"/><path d="M12 10v4M12 17.5v.01"/></svg>Warning</span>
+<span style="flex:1 1 260px;font-size:14.5px;font-weight:700;min-width:0">Escape key does not close the size drawer</span>
+<span style="font-family:'JetBrains Mono',ui-monospace,monospace;font-size:11.5px;background:#EEF0F4;color:#3A4352;border-radius:4px;padding:2px 6px">interaction/escape-not-closing</span>
+<span style="font-size:12.5px;color:#566070">3 pages · Desktop</span>
+<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#566070" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+</summary>
+</details>
+
+<details style="border-top:1px solid #E8EBF0">
+<summary style="cursor:pointer;padding:14px 16px;display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center">
+<span style="display:inline-flex;align-items:center;gap:5px;height:24px;padding:0 9px;border-radius:6px;background:#FFF3DC;color:#8A5200;font-size:12px;font-weight:700"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4l9 16H3z"/><path d="M12 10v4M12 17.5v.01"/></svg>Warning</span>
+<span style="flex:1 1 260px;font-size:14.5px;font-weight:700;min-width:0">Image has no alt attribute</span>
+<span style="font-family:'JetBrains Mono',ui-monospace,monospace;font-size:11.5px;background:#EEF0F4;color:#3A4352;border-radius:4px;padding:2px 6px">media/missing-alt</span>
+<span style="font-size:12.5px;color:#566070">12 of 14 pages · Desktop, Mobile</span>
+<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#566070" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+</summary>
+</details>
+
+<details style="border-top:1px solid #E8EBF0">
+<summary style="cursor:pointer;padding:14px 16px;display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center">
+<span style="display:inline-flex;align-items:center;gap:5px;height:24px;padding:0 9px;border-radius:6px;background:#FFF3DC;color:#8A5200;font-size:12px;font-weight:700"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4l9 16H3z"/><path d="M12 10v4M12 17.5v.01"/></svg>Warning</span>
+<span style="flex:1 1 260px;font-size:14.5px;font-weight:700;min-width:0">Largest image on the page is lazy-loaded</span>
+<span style="font-family:'JetBrains Mono',ui-monospace,monospace;font-size:11.5px;background:#EEF0F4;color:#3A4352;border-radius:4px;padding:2px 6px">performance/lcp-lazy</span>
+<span style="font-size:12.5px;color:#566070">1 page · Desktop</span>
+<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#566070" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+</summary>
+</details>
+
+<details style="border-top:1px solid #E8EBF0">
+<summary style="cursor:pointer;padding:14px 16px;display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center">
+<span style="display:inline-flex;align-items:center;gap:5px;height:24px;padding:0 9px;border-radius:6px;background:#E8EFFD;color:#2757C4;font-size:12px;font-weight:700"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8v.01"/></svg>Info</span>
+<span style="flex:1 1 260px;font-size:14.5px;font-weight:700;min-width:0">Request blocked by the browser (analytics script)</span>
+<span style="font-family:'JetBrains Mono',ui-monospace,monospace;font-size:11.5px;background:#EEF0F4;color:#3A4352;border-radius:4px;padding:2px 6px">health/network-failure</span>
+<span style="font-size:12.5px;color:#566070">14 of 14 pages · Desktop, Mobile</span>
+<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#566070" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+</summary>
+</details>
+
+<div style="border-top:1px solid #E8EBF0;padding:12px 16px;display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;background:#FBFBFD">
+<div style="font-size:13px;color:#566070">Showing 7 of 17 issue groups, most severe first</div>
+<button type="button" style="height:34px;padding:0 14px;border-radius:9px;border:1px solid #C5CBD6;background:#FFFFFF;color:#14171C;font-size:13px;font-weight:600;cursor:pointer">Show 10 more</button>
+</div>
+
+</div>
+</section>
+
+<aside aria-label="Run details" style="flex:1 1 300px;min-width:0;display:flex;flex-direction:column;gap:20px">
+
+<section aria-labelledby="cmp-title" style="background:#FFFFFF;border:1px solid #DDE1E8;border-radius:14px;padding:16px">
+<h2 id="cmp-title" style="margin:0 0 4px 0;font-size:16px;font-weight:700">Compared with previous run</h2>
+<div style="font-size:12.5px;color:#566070;margin-bottom:12px">9 Oct 2026, 18:40 · 7 errors</div>
+<div style="display:flex;gap:8px">
+<div style="flex:1;background:#FDECEA;border-radius:10px;padding:8px 10px"><div style="font-size:22px;font-weight:700;color:#B42318;line-height:1.1">3</div><div style="font-size:12px;font-weight:600;color:#B42318">New</div></div>
+<div style="flex:1;background:#E3F4EA;border-radius:10px;padding:8px 10px"><div style="font-size:22px;font-weight:700;color:#17734A;line-height:1.1">5</div><div style="font-size:12px;font-weight:600;color:#17734A">Fixed</div></div>
+<div style="flex:1;background:#EEF0F4;border-radius:10px;padding:8px 10px"><div style="font-size:22px;font-weight:700;color:#3A4352;line-height:1.1">9</div><div style="font-size:12px;font-weight:600;color:#3A4352">Unchanged</div></div>
+</div>
+</section>
+
+<section aria-labelledby="pass-title" style="background:#FFFFFF;border:1px solid #DDE1E8;border-radius:14px;padding:16px">
+<h2 id="pass-title" style="margin:0 0 10px 0;font-size:16px;font-weight:700">Passed checks</h2>
+<div style="display:flex;flex-direction:column;font-size:13px">
+<div style="display:flex;gap:8px;align-items:flex-start;padding:7px 0;border-top:1px solid #E8EBF0"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#17734A" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex:none;margin-top:1px"><path d="M5 12.5l4.5 4.5L19 7"/></svg><span style="flex-grow:1">Fonts load</span><span style="color:#566070">14 of 14 pages</span></div>
+<div style="display:flex;gap:8px;align-items:flex-start;padding:7px 0;border-top:1px solid #E8EBF0"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#17734A" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex:none;margin-top:1px"><path d="M5 12.5l4.5 4.5L19 7"/></svg><span style="flex-grow:1">No Liquid errors or missing translations</span><span style="color:#566070">14 of 14</span></div>
+<div style="display:flex;gap:8px;align-items:flex-start;padding:7px 0;border-top:1px solid #E8EBF0"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#17734A" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex:none;margin-top:1px"><path d="M5 12.5l4.5 4.5L19 7"/></svg><span style="flex-grow:1">Cart badge matches the cart</span><span style="color:#566070">2 of 2</span></div>
+<div style="display:flex;gap:8px;align-items:flex-start;padding:7px 0;border-top:1px solid #E8EBF0"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#17734A" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex:none;margin-top:1px"><path d="M5 12.5l4.5 4.5L19 7"/></svg><span style="flex-grow:1">Search returns results</span><span style="color:#566070">1 of 1</span></div>
+<div style="display:flex;gap:8px;align-items:flex-start;padding:7px 0;border-top:1px solid #E8EBF0"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#17734A" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex:none;margin-top:1px"><path d="M5 12.5l4.5 4.5L19 7"/></svg><span style="flex-grow:1">Page titles present</span><span style="color:#566070">14 of 14</span></div>
+<div style="display:flex;gap:8px;align-items:flex-start;padding:7px 0;border-top:1px solid #E8EBF0"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#17734A" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex:none;margin-top:1px"><path d="M5 12.5l4.5 4.5L19 7"/></svg><span style="flex-grow:1">Internal links resolve</span><span style="color:#566070">9 of 14</span></div>
+</div>
+<button type="button" style="margin-top:8px;height:34px;width:100%;border-radius:9px;border:1px solid #C5CBD6;background:#FFFFFF;color:#14171C;font-size:13px;font-weight:600;cursor:pointer">Show all 143</button>
+</section>
+
+<section aria-labelledby="skip-title" style="background:#FFFFFF;border:1px solid #DDE1E8;border-radius:14px;padding:16px">
+<h2 id="skip-title" style="margin:0 0 10px 0;font-size:16px;font-weight:700">Skipped</h2>
+<div style="display:flex;flex-direction:column;font-size:13px;line-height:1.45">
+<div style="padding:7px 0;border-top:1px solid #E8EBF0"><div style="font-weight:600">Variant check</div><div style="color:#566070"><span style="font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12px">/products/gift-card</span> has only one variant.</div></div>
+<div style="padding:7px 0;border-top:1px solid #E8EBF0"><div style="font-weight:600">Cart badge check</div><div style="color:#566070"><span style="font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12px">/cart</span> has no badge on this template.</div></div>
+</div>
+</section>
+
+</aside>
+
+</div>
+</main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1280,"height":1960}}'>
+class Component extends DCLogic {
+renderVals() {
+return {};
+}
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,76 @@
+{
+  "v": 3,
+  "createdOnFiles": {
+    "v": 1,
+    "at": "2026-10-10T04:55:00Z"
+  },
+  "title": "Storefront QA screens",
+  "launch": {
+    "view": "canvas"
+  },
+  "boards": {
+    "Main.dc.html": {
+      "x": 0,
+      "y": 0,
+      "w": 380,
+      "h": 640,
+      "title": "Popup \u00b7 Quick mode"
+    },
+    "Confirmations.dc.html": {
+      "x": 460,
+      "y": 0,
+      "w": 1240,
+      "h": 620,
+      "title": "Opt-in confirmations and permission prompt"
+    },
+    "ReportRunning.dc.html": {
+      "x": 0,
+      "y": 760,
+      "w": 1280,
+      "h": 900,
+      "title": "Report \u00b7 run in progress",
+      "expand": "fill"
+    },
+    "ReportFinished.dc.html": {
+      "x": 1360,
+      "y": 760,
+      "w": 1280,
+      "h": 1960,
+      "title": "Report \u00b7 finished run",
+      "expand": "fill"
+    },
+    "Options.dc.html": {
+      "x": 2720,
+      "y": 760,
+      "w": 1280,
+      "h": 3300,
+      "title": "Options",
+      "expand": "fill"
+    },
+    "Customize.dc.html": {
+      "x": -460,
+      "y": 0,
+      "w": 380,
+      "h": 1010,
+      "title": "Popup \u00b7 Customize open (devices and check groups)"
+    },
+    "Pages.dc.html": {
+      "x": -920,
+      "y": 0,
+      "w": 380,
+      "h": 860,
+      "title": "Popup \u00b7 Pages mode (specific pages)"
+    }
+  },
+  "order": [
+    "Main.dc.html",
+    "Pages.dc.html",
+    "Customize.dc.html",
+    "Confirmations.dc.html",
+    "ReportRunning.dc.html",
+    "ReportFinished.dc.html",
+    "Options.dc.html"
+  ],
+  "notes": {},
+  "designSystems": []
+}

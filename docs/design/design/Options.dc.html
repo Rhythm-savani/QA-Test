@@ -1,0 +1,266 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Storefront QA options</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap">
+<style>
+body{margin:0}
+button,input,select,textarea{font-family:inherit}
+button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:2px solid #0B6F6E;outline-offset:2px}
+a{color:#0B6F6E}a:hover{color:#084E4D}
+</style>
+</helmet>
+<div style="min-height:3300px;background:#F3F5F8;color:#14171C;font-family:'Instrument Sans',system-ui,sans-serif">
+
+<header style="background:#FFFFFF;border-bottom:1px solid #DDE1E8">
+<div style="max-width:1240px;margin:0 auto;padding:8px 20px;min-height:40px;display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+<svg width="26" height="26" viewBox="0 0 28 28" aria-hidden="true"><rect width="28" height="28" rx="7" fill="#14171C"/><path d="M8 14.5l4 4 8-9" stroke="#5EE0D6" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+<div style="font-size:15px;font-weight:700;letter-spacing:-0.01em">Storefront QA</div>
+<div style="color:#8590A2">/</div>
+<div style="font-size:14px;color:#566070">Options</div>
+<div style="flex-grow:1"></div>
+<div style="display:flex;align-items:center;gap:6px;font-size:12.5px;color:#17734A;font-weight:600"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7"/></svg>All changes saved</div>
+</div>
+</header>
+
+<div style="max-width:1240px;margin:0 auto;padding:24px 20px 64px 20px;display:flex;flex-wrap:wrap;gap:24px;align-items:flex-start">
+
+<nav aria-label="Options sections" style="flex:1 1 200px;max-width:240px;min-width:180px;display:flex;flex-direction:column;gap:2px">
+<a href="#groups" style="display:block;padding:9px 12px;border-radius:8px;background:#E2F3F2;color:#0B4F4E;font-size:13.5px;font-weight:700;text-decoration:none">Check groups</a>
+<a href="#run" style="display:block;padding:9px 12px;border-radius:8px;color:#3A4352;font-size:13.5px;font-weight:600;text-decoration:none">Viewports and run</a>
+<a href="#pages" style="display:block;padding:9px 12px;border-radius:8px;color:#3A4352;font-size:13.5px;font-weight:600;text-decoration:none">Full-mode pages</a>
+<a href="#perf" style="display:block;padding:9px 12px;border-radius:8px;color:#3A4352;font-size:13.5px;font-weight:600;text-decoration:none">Performance thresholds</a>
+<a href="#ignore" style="display:block;padding:9px 12px;border-radius:8px;color:#3A4352;font-size:13.5px;font-weight:600;text-decoration:none">Ignore lists</a>
+<a href="#store" style="display:block;padding:9px 12px;border-radius:8px;color:#3A4352;font-size:13.5px;font-weight:600;text-decoration:none">Newsletter and cart</a>
+<a href="#rules" style="display:block;padding:9px 12px;border-radius:8px;color:#3A4352;font-size:13.5px;font-weight:600;text-decoration:none">Custom rules</a>
+<a href="#data" style="display:block;padding:9px 12px;border-radius:8px;color:#3A4352;font-size:13.5px;font-weight:600;text-decoration:none">History and data</a>
+</nav>
+
+<main style="flex:999 1 560px;min-width:0;display:flex;flex-direction:column;gap:20px">
+
+<section id="groups" aria-labelledby="g-title" style="background:#FFFFFF;border:1px solid #DDE1E8;border-radius:14px;padding:20px 20px 8px 20px">
+<h2 id="g-title" style="margin:0;font-size:18px;font-weight:700;letter-spacing:-0.01em">Check groups</h2>
+<p style="margin:4px 0 8px 0;font-size:13.5px;line-height:1.5;color:#566070">These are the defaults the popup starts from. Anything that changes store data stays off until you turn it on.</p>
+
+<div style="display:flex;align-items:center;gap:12px;padding:12px 0;border-top:1px solid #E8EBF0;flex-wrap:wrap">
+<div style="flex:1 1 240px;min-width:0"><div style="font-size:14px;font-weight:600">Health</div><div style="font-size:12.5px;color:#566070">Console errors, failed requests</div></div>
+<button type="button" role="switch" aria-checked="true" aria-label="Health" style="position:relative;width:40px;height:24px;border-radius:12px;border:none;background:#0B6F6E;padding:0;cursor:pointer;flex:none"><span style="position:absolute;top:3px;left:19px;width:18px;height:18px;border-radius:50%;background:#FFFFFF"></span></button>
+</div>
+<div style="display:flex;align-items:center;gap:12px;padding:12px 0;border-top:1px solid #E8EBF0;flex-wrap:wrap">
+<div style="flex:1 1 240px;min-width:0"><div style="font-size:14px;font-weight:600">Media</div><div style="font-size:12.5px;color:#566070">Broken, stretched and oversized images, missing alt text</div></div>
+<button type="button" role="switch" aria-checked="true" aria-label="Media" style="position:relative;width:40px;height:24px;border-radius:12px;border:none;background:#0B6F6E;padding:0;cursor:pointer;flex:none"><span style="position:absolute;top:3px;left:19px;width:18px;height:18px;border-radius:50%;background:#FFFFFF"></span></button>
+</div>
+<div style="display:flex;align-items:center;gap:12px;padding:12px 0;border-top:1px solid #E8EBF0;flex-wrap:wrap">
+<div style="flex:1 1 240px;min-width:0"><div style="font-size:14px;font-weight:600">Links</div><div style="font-size:12.5px;color:#566070">Dead and broken internal links, malformed mailto and tel</div></div>
+<button type="button" role="switch" aria-checked="true" aria-label="Links" style="position:relative;width:40px;height:24px;border-radius:12px;border:none;background:#0B6F6E;padding:0;cursor:pointer;flex:none"><span style="position:absolute;top:3px;left:19px;width:18px;height:18px;border-radius:50%;background:#FFFFFF"></span></button>
+</div>
+<div style="display:flex;align-items:center;gap:12px;padding:12px 0;border-top:1px solid #E8EBF0;flex-wrap:wrap">
+<div style="flex:1 1 240px;min-width:0"><div style="font-size:14px;font-weight:600">Content</div><div style="font-size:12.5px;color:#566070">Liquid errors, missing translations, empty sections, failed fonts</div></div>
+<button type="button" role="switch" aria-checked="true" aria-label="Content" style="position:relative;width:40px;height:24px;border-radius:12px;border:none;background:#0B6F6E;padding:0;cursor:pointer;flex:none"><span style="position:absolute;top:3px;left:19px;width:18px;height:18px;border-radius:50%;background:#FFFFFF"></span></button>
+</div>
+<div style="display:flex;align-items:center;gap:12px;padding:12px 0;border-top:1px solid #E8EBF0;flex-wrap:wrap">
+<div style="flex:1 1 240px;min-width:0"><div style="font-size:14px;font-weight:600">Layout</div><div style="font-size:12.5px;color:#566070">Overflow, covered elements, clipped text, tap targets</div></div>
+<button type="button" role="switch" aria-checked="true" aria-label="Layout" style="position:relative;width:40px;height:24px;border-radius:12px;border:none;background:#0B6F6E;padding:0;cursor:pointer;flex:none"><span style="position:absolute;top:3px;left:19px;width:18px;height:18px;border-radius:50%;background:#FFFFFF"></span></button>
+</div>
+<div style="display:flex;align-items:center;gap:12px;padding:12px 0;border-top:1px solid #E8EBF0;flex-wrap:wrap">
+<div style="flex:1 1 240px;min-width:0"><div style="font-size:14px;font-weight:600">Interactions</div><div style="font-size:12.5px;color:#566070">Drawers, modals, close buttons, carousels, tabs</div></div>
+<button type="button" role="switch" aria-checked="true" aria-label="Interactions" style="position:relative;width:40px;height:24px;border-radius:12px;border:none;background:#0B6F6E;padding:0;cursor:pointer;flex:none"><span style="position:absolute;top:3px;left:19px;width:18px;height:18px;border-radius:50%;background:#FFFFFF"></span></button>
+</div>
+<div style="display:flex;align-items:center;gap:12px;padding:12px 0;border-top:1px solid #E8EBF0;flex-wrap:wrap">
+<div style="flex:1 1 240px;min-width:0"><div style="font-size:14px;font-weight:600">Accessibility</div><div style="font-size:12.5px;color:#566070">axe-core, WCAG 2.1 A and AA plus best practice</div></div>
+<button type="button" role="switch" aria-checked="true" aria-label="Accessibility" style="position:relative;width:40px;height:24px;border-radius:12px;border:none;background:#0B6F6E;padding:0;cursor:pointer;flex:none"><span style="position:absolute;top:3px;left:19px;width:18px;height:18px;border-radius:50%;background:#FFFFFF"></span></button>
+</div>
+<div style="display:flex;align-items:center;gap:12px;padding:12px 0;border-top:1px solid #E8EBF0;flex-wrap:wrap">
+<div style="flex:1 1 240px;min-width:0"><div style="font-size:14px;font-weight:600">Performance</div><div style="font-size:12.5px;color:#566070">LCP, CLS, TTFB, page weight, render-blocking scripts</div></div>
+<button type="button" role="switch" aria-checked="true" aria-label="Performance" style="position:relative;width:40px;height:24px;border-radius:12px;border:none;background:#0B6F6E;padding:0;cursor:pointer;flex:none"><span style="position:absolute;top:3px;left:19px;width:18px;height:18px;border-radius:50%;background:#FFFFFF"></span></button>
+</div>
+<div style="display:flex;align-items:center;gap:12px;padding:12px 0;border-top:1px solid #E8EBF0;flex-wrap:wrap">
+<div style="flex:1 1 240px;min-width:0"><div style="font-size:14px;font-weight:600">Page basics</div><div style="font-size:12.5px;color:#566070">Title, meta description, h1, language, canonical</div></div>
+<button type="button" role="switch" aria-checked="true" aria-label="Page basics" style="position:relative;width:40px;height:24px;border-radius:12px;border:none;background:#0B6F6E;padding:0;cursor:pointer;flex:none"><span style="position:absolute;top:3px;left:19px;width:18px;height:18px;border-radius:50%;background:#FFFFFF"></span></button>
+</div>
+<div style="display:flex;align-items:center;gap:12px;padding:12px 0;border-top:1px solid #E8EBF0;flex-wrap:wrap">
+<div style="flex:1 1 240px;min-width:0"><div style="font-size:14px;font-weight:600">Shopify reads</div><div style="font-size:12.5px;color:#566070">Variants against product JSON, cart badge, search. Read-only.</div></div>
+<button type="button" role="switch" aria-checked="true" aria-label="Shopify reads" style="position:relative;width:40px;height:24px;border-radius:12px;border:none;background:#0B6F6E;padding:0;cursor:pointer;flex:none"><span style="position:absolute;top:3px;left:19px;width:18px;height:18px;border-radius:50%;background:#FFFFFF"></span></button>
+</div>
+<div style="display:flex;align-items:center;gap:12px;padding:12px 0;border-top:1px solid #E8EBF0;flex-wrap:wrap">
+<div style="flex:1 1 240px;min-width:0"><div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap"><span style="font-size:14px;font-weight:600">Newsletter form</span><span style="font-size:11px;font-weight:700;color:#8A5200;background:#FFF3DC;border-radius:5px;padding:2px 6px">Changes store data</span></div><div style="font-size:12.5px;color:#566070">Level 1 checks the form. Level 2 submits a test address.</div></div>
+<button type="button" role="switch" aria-checked="false" aria-label="Newsletter form" style="position:relative;width:40px;height:24px;border-radius:12px;border:none;background:#8590A2;padding:0;cursor:pointer;flex:none"><span style="position:absolute;top:3px;left:3px;width:18px;height:18px;border-radius:50%;background:#FFFFFF"></span></button>
+</div>
+<div style="display:flex;align-items:center;gap:12px;padding:12px 0;border-top:1px solid #E8EBF0;flex-wrap:wrap">
+<div style="flex:1 1 240px;min-width:0"><div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap"><span style="font-size:14px;font-weight:600">Cart actions</span><span style="font-size:11px;font-weight:700;color:#8A5200;background:#FFF3DC;border-radius:5px;padding:2px 6px">Changes store data</span></div><div style="font-size:12.5px;color:#566070">Adds a test item, changes quantity, removes it, restores your cart.</div></div>
+<button type="button" role="switch" aria-checked="false" aria-label="Cart actions" style="position:relative;width:40px;height:24px;border-radius:12px;border:none;background:#8590A2;padding:0;cursor:pointer;flex:none"><span style="position:absolute;top:3px;left:3px;width:18px;height:18px;border-radius:50%;background:#FFFFFF"></span></button>
+</div>
+<div style="display:flex;align-items:center;gap:12px;padding:12px 0;border-top:1px solid #E8EBF0;flex-wrap:wrap">
+<div style="flex:1 1 240px;min-width:0"><div style="font-size:14px;font-weight:600">Custom rules</div><div style="font-size:12.5px;color:#566070">Runs only when you have defined rules below.</div></div>
+<button type="button" role="switch" aria-checked="false" aria-label="Custom rules" style="position:relative;width:40px;height:24px;border-radius:12px;border:none;background:#8590A2;padding:0;cursor:pointer;flex:none"><span style="position:absolute;top:3px;left:3px;width:18px;height:18px;border-radius:50%;background:#FFFFFF"></span></button>
+</div>
+</section>
+
+<section id="run" aria-labelledby="r-title" style="background:#FFFFFF;border:1px solid #DDE1E8;border-radius:14px;padding:20px 20px 8px 20px">
+<h2 id="r-title" style="margin:0;font-size:18px;font-weight:700;letter-spacing:-0.01em">Viewports and run behaviour</h2>
+<p style="margin:4px 0 12px 0;font-size:13.5px;line-height:1.5;color:#566070">All three viewports are on by default and each page is checked at every viewport that is on. At least one must stay on. Tablet and mobile need the debugging permission.</p>
+<div style="display:flex;flex-wrap:wrap;gap:12px;margin-bottom:12px">
+<div style="flex:1 1 220px;border:1px solid #0B6F6E;background:#F1F9F8;border-radius:10px;padding:12px 14px">
+<div style="display:flex;align-items:center;gap:6px;font-size:14px;font-weight:700"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#0B6F6E" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7"/></svg>Desktop</div>
+<div style="font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;color:#3A4352;margin-top:4px">1440 × 900 · on</div>
+</div>
+<div style="flex:1 1 220px;border:1px solid #0B6F6E;background:#F1F9F8;border-radius:10px;padding:12px 14px">
+<div style="display:flex;align-items:center;gap:6px;font-size:14px;font-weight:700"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#0B6F6E" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7"/></svg>Mobile</div>
+<div style="font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;color:#3A4352;margin-top:4px">390 × 844 · DPR 3 · on</div>
+</div>
+<div style="flex:1 1 220px;border:1px solid #0B6F6E;background:#F1F9F8;border-radius:10px;padding:12px 14px">
+<div style="display:flex;align-items:center;gap:6px;font-size:14px;font-weight:700"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#0B6F6E" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7"/></svg>Tablet</div>
+<div style="font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;color:#3A4352;margin-top:4px">768 × 1024 · on</div>
+</div>
+</div>
+
+<div style="display:flex;align-items:center;gap:12px;padding:12px 0;border-top:1px solid #E8EBF0;flex-wrap:wrap">
+<div style="flex:1 1 240px;min-width:0"><div style="font-size:14px;font-weight:600">Evidence screenshots</div><div style="font-size:12.5px;color:#566070">Outlines the element and attaches an image to each finding.</div></div>
+<button type="button" role="switch" aria-checked="true" aria-label="Evidence screenshots" style="position:relative;width:40px;height:24px;border-radius:12px;border:none;background:#0B6F6E;padding:0;cursor:pointer;flex:none"><span style="position:absolute;top:3px;left:19px;width:18px;height:18px;border-radius:50%;background:#FFFFFF"></span></button>
+</div>
+<div style="display:flex;align-items:center;gap:12px;padding:12px 0;border-top:1px solid #E8EBF0;flex-wrap:wrap">
+<div style="flex:1 1 240px;min-width:0"><div style="font-size:14px;font-weight:600">Keep the QA window open after a run</div><div style="font-size:12.5px;color:#566070">Useful when you want to inspect a page the checker visited.</div></div>
+<button type="button" role="switch" aria-checked="false" aria-label="Keep the QA window open after a run" style="position:relative;width:40px;height:24px;border-radius:12px;border:none;background:#8590A2;padding:0;cursor:pointer;flex:none"><span style="position:absolute;top:3px;left:3px;width:18px;height:18px;border-radius:50%;background:#FFFFFF"></span></button>
+</div>
+<div style="display:flex;align-items:center;gap:12px;padding:12px 0;border-top:1px solid #E8EBF0;flex-wrap:wrap">
+<div style="flex:1 1 240px;min-width:0"><div style="font-size:14px;font-weight:600">Report console warnings</div><div style="font-size:12.5px;color:#566070">Adds console.warn messages as Info findings.</div></div>
+<button type="button" role="switch" aria-checked="false" aria-label="Report console warnings" style="position:relative;width:40px;height:24px;border-radius:12px;border:none;background:#8590A2;padding:0;cursor:pointer;flex:none"><span style="position:absolute;top:3px;left:3px;width:18px;height:18px;border-radius:50%;background:#FFFFFF"></span></button>
+</div>
+<div style="display:flex;align-items:center;gap:12px;padding:12px 0;border-top:1px solid #E8EBF0;flex-wrap:wrap">
+<div style="flex:1 1 240px;min-width:0"><div style="font-size:14px;font-weight:600">Strict tap targets</div><div style="font-size:12.5px;color:#566070">Also flags targets under 44 px on mobile, as Info.</div></div>
+<button type="button" role="switch" aria-checked="false" aria-label="Strict tap targets" style="position:relative;width:40px;height:24px;border-radius:12px;border:none;background:#8590A2;padding:0;cursor:pointer;flex:none"><span style="position:absolute;top:3px;left:3px;width:18px;height:18px;border-radius:50%;background:#FFFFFF"></span></button>
+</div>
+<div style="display:flex;align-items:center;gap:12px;padding:12px 0;border-top:1px solid #E8EBF0;flex-wrap:wrap">
+<div style="flex:1 1 240px;min-width:0"><div style="font-size:14px;font-weight:600">Debugging permission</div><div style="font-size:12.5px;color:#566070">Needed for mobile and tablet sizes and for screenshots.</div></div>
+<span style="display:flex;align-items:center;gap:6px;background:#E3F4EA;color:#17734A;border-radius:8px;padding:5px 10px;font-size:12.5px;font-weight:600"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7"/></svg>Granted</span>
+<button type="button" style="height:34px;padding:0 14px;border-radius:9px;border:1px solid #C5CBD6;background:#FFFFFF;color:#14171C;font-size:13px;font-weight:600;cursor:pointer">Revoke</button>
+</div>
+</section>
+
+<section id="pages" aria-labelledby="p-title" style="background:#FFFFFF;border:1px solid #DDE1E8;border-radius:14px;padding:20px">
+<h2 id="p-title" style="margin:0;font-size:18px;font-weight:700;letter-spacing:-0.01em">Full-mode pages</h2>
+<p style="margin:4px 0 14px 0;font-size:13.5px;line-height:1.5;color:#566070">How many pages of each type a Full run samples from the sitemap. The first pages found are used, so runs stay comparable. The cart, search and a 404 page are always added.</p>
+<div style="display:flex;flex-wrap:wrap;gap:12px 16px;margin-bottom:16px">
+<label style="display:flex;flex-direction:column;gap:4px;font-size:12px;font-weight:600;color:#566070">Home<input type="number" value="1" min="0" style="height:38px;width:84px;box-sizing:border-box;border:1px solid #C5CBD6;border-radius:8px;padding:0 10px;font-size:14px;color:#14171C;background:#FFFFFF"></label>
+<label style="display:flex;flex-direction:column;gap:4px;font-size:12px;font-weight:600;color:#566070">Collections<input type="number" value="3" min="0" style="height:38px;width:84px;box-sizing:border-box;border:1px solid #C5CBD6;border-radius:8px;padding:0 10px;font-size:14px;color:#14171C;background:#FFFFFF"></label>
+<label style="display:flex;flex-direction:column;gap:4px;font-size:12px;font-weight:600;color:#566070">Products<input type="number" value="3" min="0" style="height:38px;width:84px;box-sizing:border-box;border:1px solid #C5CBD6;border-radius:8px;padding:0 10px;font-size:14px;color:#14171C;background:#FFFFFF"></label>
+<label style="display:flex;flex-direction:column;gap:4px;font-size:12px;font-weight:600;color:#566070">Pages<input type="number" value="2" min="0" style="height:38px;width:84px;box-sizing:border-box;border:1px solid #C5CBD6;border-radius:8px;padding:0 10px;font-size:14px;color:#14171C;background:#FFFFFF"></label>
+<label style="display:flex;flex-direction:column;gap:4px;font-size:12px;font-weight:600;color:#566070">Blogs<input type="number" value="1" min="0" style="height:38px;width:84px;box-sizing:border-box;border:1px solid #C5CBD6;border-radius:8px;padding:0 10px;font-size:14px;color:#14171C;background:#FFFFFF"></label>
+<label style="display:flex;flex-direction:column;gap:4px;font-size:12px;font-weight:600;color:#566070">Articles<input type="number" value="1" min="0" style="height:38px;width:84px;box-sizing:border-box;border:1px solid #C5CBD6;border-radius:8px;padding:0 10px;font-size:14px;color:#14171C;background:#FFFFFF"></label>
+</div>
+<div style="display:flex;flex-wrap:wrap;gap:12px 16px;margin-bottom:16px">
+<label style="display:flex;flex-direction:column;gap:4px;font-size:12px;font-weight:600;color:#566070">Max pages per run<input type="number" value="25" min="1" style="height:38px;width:120px;box-sizing:border-box;border:1px solid #C5CBD6;border-radius:8px;padding:0 10px;font-size:14px;color:#14171C;background:#FFFFFF"></label>
+<label style="display:flex;flex-direction:column;gap:4px;font-size:12px;font-weight:600;color:#566070">Pages at once (1 to 3)<input type="number" value="1" min="1" max="3" style="height:38px;width:120px;box-sizing:border-box;border:1px solid #C5CBD6;border-radius:8px;padding:0 10px;font-size:14px;color:#14171C;background:#FFFFFF"></label>
+<label style="display:flex;flex-direction:column;gap:4px;font-size:12px;font-weight:600;color:#566070">Page load timeout (seconds)<input type="number" value="30" min="5" style="height:38px;width:120px;box-sizing:border-box;border:1px solid #C5CBD6;border-radius:8px;padding:0 10px;font-size:14px;color:#14171C;background:#FFFFFF"></label>
+</div>
+<label style="display:flex;flex-direction:column;gap:4px;font-size:12px;font-weight:600;color:#566070">Extra paths to include, one per line
+<textarea rows="3" style="box-sizing:border-box;width:100%;border:1px solid #C5CBD6;border-radius:8px;padding:10px 12px;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;line-height:1.6;color:#14171C;background:#FFFFFF;resize:vertical">/pages/size-guide
+/collections/gifts</textarea></label>
+</section>
+
+<section id="perf" aria-labelledby="pf-title" style="background:#FFFFFF;border:1px solid #DDE1E8;border-radius:14px;padding:20px">
+<h2 id="pf-title" style="margin:0;font-size:18px;font-weight:700;letter-spacing:-0.01em">Performance thresholds</h2>
+<p style="margin:4px 0 14px 0;font-size:13.5px;line-height:1.5;color:#566070">Above the first value is a Warning. Above the second is an Error. Numbers are measured in your own browser, so treat them as indicative.</p>
+<div style="display:flex;flex-direction:column">
+<div style="display:flex;align-items:center;gap:12px;padding:10px 0;border-top:1px solid #E8EBF0;flex-wrap:wrap"><div style="flex:1 1 200px;font-size:14px;font-weight:600">Largest contentful paint (s)</div>
+<input type="number" step="0.1" value="2.5" aria-label="LCP warning above, seconds" style="height:36px;width:90px;box-sizing:border-box;border:1px solid #C5CBD6;border-radius:8px;padding:0 10px;font-size:14px;color:#14171C;background:#FFFFFF">
+<input type="number" step="0.1" value="4" aria-label="LCP error above, seconds" style="height:36px;width:90px;box-sizing:border-box;border:1px solid #C5CBD6;border-radius:8px;padding:0 10px;font-size:14px;color:#14171C;background:#FFFFFF"></div>
+<div style="display:flex;align-items:center;gap:12px;padding:10px 0;border-top:1px solid #E8EBF0;flex-wrap:wrap"><div style="flex:1 1 200px;font-size:14px;font-weight:600">Cumulative layout shift</div>
+<input type="number" step="0.01" value="0.1" aria-label="CLS warning above" style="height:36px;width:90px;box-sizing:border-box;border:1px solid #C5CBD6;border-radius:8px;padding:0 10px;font-size:14px;color:#14171C;background:#FFFFFF">
+<input type="number" step="0.01" value="0.25" aria-label="CLS error above" style="height:36px;width:90px;box-sizing:border-box;border:1px solid #C5CBD6;border-radius:8px;padding:0 10px;font-size:14px;color:#14171C;background:#FFFFFF"></div>
+<div style="display:flex;align-items:center;gap:12px;padding:10px 0;border-top:1px solid #E8EBF0;flex-wrap:wrap"><div style="flex:1 1 200px;font-size:14px;font-weight:600">Time to first byte (s)</div>
+<input type="number" step="0.1" value="0.8" aria-label="TTFB warning above, seconds" style="height:36px;width:90px;box-sizing:border-box;border:1px solid #C5CBD6;border-radius:8px;padding:0 10px;font-size:14px;color:#14171C;background:#FFFFFF">
+<input type="number" step="0.1" value="1.8" aria-label="TTFB error above, seconds" style="height:36px;width:90px;box-sizing:border-box;border:1px solid #C5CBD6;border-radius:8px;padding:0 10px;font-size:14px;color:#14171C;background:#FFFFFF"></div>
+<div style="display:flex;align-items:center;gap:12px;padding:10px 0;border-top:1px solid #E8EBF0;flex-wrap:wrap"><div style="flex:1 1 200px;font-size:14px;font-weight:600">First contentful paint (s)</div>
+<input type="number" step="0.1" value="1.8" aria-label="FCP warning above, seconds" style="height:36px;width:90px;box-sizing:border-box;border:1px solid #C5CBD6;border-radius:8px;padding:0 10px;font-size:14px;color:#14171C;background:#FFFFFF">
+<input type="number" step="0.1" value="3" aria-label="FCP error above, seconds" style="height:36px;width:90px;box-sizing:border-box;border:1px solid #C5CBD6;border-radius:8px;padding:0 10px;font-size:14px;color:#14171C;background:#FFFFFF"></div>
+</div>
+</section>
+
+<section id="ignore" aria-labelledby="i-title" style="background:#FFFFFF;border:1px solid #DDE1E8;border-radius:14px;padding:20px">
+<h2 id="i-title" style="margin:0;font-size:18px;font-weight:700;letter-spacing:-0.01em">Ignore lists</h2>
+<p style="margin:4px 0 14px 0;font-size:13.5px;line-height:1.5;color:#566070">Known noise you don't want in reports. One entry per line.</p>
+<div style="display:flex;flex-wrap:wrap;gap:14px">
+<label style="flex:1 1 260px;display:flex;flex-direction:column;gap:4px;font-size:12px;font-weight:600;color:#566070">Console messages (regex)
+<textarea rows="3" style="box-sizing:border-box;width:100%;border:1px solid #C5CBD6;border-radius:8px;padding:10px 12px;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;line-height:1.6;color:#14171C;background:#FFFFFF;resize:vertical">ResizeObserver loop
+Klaviyo.*not initialised</textarea></label>
+<label style="flex:1 1 260px;display:flex;flex-direction:column;gap:4px;font-size:12px;font-weight:600;color:#566070">Network URLs (regex)
+<textarea rows="3" style="box-sizing:border-box;width:100%;border:1px solid #C5CBD6;border-radius:8px;padding:10px 12px;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;line-height:1.6;color:#14171C;background:#FFFFFF;resize:vertical">googletagmanager\.com
+connect\.facebook\.net</textarea></label>
+<label style="flex:1 1 260px;display:flex;flex-direction:column;gap:4px;font-size:12px;font-weight:600;color:#566070">Selectors to skip
+<textarea rows="3" style="box-sizing:border-box;width:100%;border:1px solid #C5CBD6;border-radius:8px;padding:10px 12px;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;line-height:1.6;color:#14171C;background:#FFFFFF;resize:vertical">.cookie-banner
+#chat-widget</textarea></label>
+<label style="flex:1 1 260px;display:flex;flex-direction:column;gap:4px;font-size:12px;font-weight:600;color:#566070">Extra words the checker must never click
+<textarea rows="3" style="box-sizing:border-box;width:100%;border:1px solid #C5CBD6;border-radius:8px;padding:10px 12px;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;line-height:1.6;color:#14171C;background:#FFFFFF;resize:vertical">unsubscribe
+gift card balance</textarea></label>
+</div>
+<div style="margin-top:14px;display:flex;align-items:flex-start;gap:8px;background:#F1F3F7;border-radius:8px;padding:10px 12px;font-size:12.5px;line-height:1.5;color:#3A4352"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#566070" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex:none;margin-top:1px"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg><span>Built-in safety rules (log out, checkout, pay, place order, delete and similar) always apply and can't be removed here.</span></div>
+</section>
+
+<section id="store" aria-labelledby="s-title" style="background:#FFFFFF;border:1px solid #DDE1E8;border-radius:14px;padding:20px">
+<h2 id="s-title" style="margin:0;font-size:18px;font-weight:700;letter-spacing:-0.01em">Newsletter and cart</h2>
+<p style="margin:4px 0 14px 0;font-size:13.5px;line-height:1.5;color:#566070">Only used when the matching switch above is on.</p>
+<fieldset style="border:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px">
+<legend style="padding:0;margin-bottom:8px;font-size:14px;font-weight:600">Newsletter check level</legend>
+<label style="display:flex;gap:10px;align-items:flex-start;border:1px solid #0B6F6E;background:#F1F9F8;border-radius:10px;padding:12px 14px;font-size:13.5px;line-height:1.45;cursor:pointer"><input type="radio" name="level" checked style="margin-top:3px;accent-color:#0B6F6E"><span><span style="font-weight:700">Level 1 · check the form only</span><br><span style="color:#566070">Looks at the field type, label, button and messages. Nothing is submitted.</span></span></label>
+<label style="display:flex;gap:10px;align-items:flex-start;border:1px solid #DDE1E8;background:#FFFFFF;border-radius:10px;padding:12px 14px;font-size:13.5px;line-height:1.45;cursor:pointer"><input type="radio" name="level" style="margin-top:3px;accent-color:#0B6F6E"><span><span style="font-weight:700">Level 2 · submit a test address</span><br><span style="color:#566070">Creates a real subscriber. You confirm once before the first run.</span></span></label>
+</fieldset>
+<label style="display:flex;flex-direction:column;gap:4px;margin-top:16px;font-size:12px;font-weight:600;color:#566070;max-width:420px">Test email address
+<input type="email" value="qa+northwind@example.com" style="height:38px;box-sizing:border-box;border:1px solid #C5CBD6;border-radius:8px;padding:0 12px;font-size:14px;color:#14171C;background:#FFFFFF"></label>
+<div style="margin-top:6px;font-size:12.5px;color:#566070">Stored only in this browser.</div>
+</section>
+
+<section id="rules" aria-labelledby="cr-title" style="background:#FFFFFF;border:1px solid #DDE1E8;border-radius:14px;padding:20px">
+<h2 id="cr-title" style="margin:0;font-size:18px;font-weight:700;letter-spacing:-0.01em">Custom rules</h2>
+<p style="margin:4px 0 14px 0;font-size:13.5px;line-height:1.5;color:#566070">Cover your own features, such as a wishlist drawer or quote form, with the same open and close tests the checker uses everywhere. Each rule names a trigger, what should appear, and how it closes.</p>
+<label style="display:flex;flex-direction:column;gap:4px;font-size:12px;font-weight:600;color:#566070">Rules (JSON)
+<textarea rows="13" spellcheck="false" style="box-sizing:border-box;width:100%;border:1px solid #14171C;border-radius:8px;padding:12px 14px;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12.5px;line-height:1.65;color:#E7EAF0;background:#14171C;resize:vertical">[
+  {
+    "name": "Wishlist drawer",
+    "urlPattern": "/collections/",
+    "trigger": ".header__icon--wishlist",
+    "expectVisible": "wishlist-drawer[open]",
+    "close": "wishlist-drawer .drawer__close",
+    "closeExpectHidden": "wishlist-drawer:not([open])"
+  }
+]</textarea></label>
+<div style="margin-top:12px;display:flex;flex-wrap:wrap;gap:10px;align-items:center">
+<div style="display:flex;align-items:center;gap:6px;background:#E3F4EA;color:#17734A;border-radius:8px;padding:6px 10px;font-size:12.5px;font-weight:600"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7"/></svg>1 rule, valid</div>
+<div style="flex-grow:1"></div>
+<button type="button" style="height:34px;padding:0 14px;border-radius:9px;border:1px solid #C5CBD6;background:#FFFFFF;color:#14171C;font-size:13px;font-weight:600;cursor:pointer">Insert example</button>
+<button type="button" style="height:34px;padding:0 14px;border-radius:9px;border:1px solid #C5CBD6;background:#FFFFFF;color:#14171C;font-size:13px;font-weight:600;cursor:pointer">Format</button>
+</div>
+</section>
+
+<section id="data" aria-labelledby="d-title" style="background:#FFFFFF;border:1px solid #DDE1E8;border-radius:14px;padding:20px">
+<h2 id="d-title" style="margin:0;font-size:18px;font-weight:700;letter-spacing:-0.01em">History and data</h2>
+<p style="margin:4px 0 14px 0;font-size:13.5px;line-height:1.5;color:#566070">Runs and screenshots stay in this browser. Nothing is sent anywhere.</p>
+<div style="display:flex;flex-wrap:wrap;gap:12px;align-items:flex-end">
+<label style="display:flex;flex-direction:column;gap:4px;font-size:12px;font-weight:600;color:#566070">Runs kept per site
+<select style="height:38px;border:1px solid #C5CBD6;border-radius:8px;padding:0 12px;background:#FFFFFF;font-size:14px;color:#14171C"><option>20 runs</option></select></label>
+<div style="flex-grow:1"></div>
+<button type="button" style="height:38px;padding:0 14px;border-radius:9px;border:1px solid #C5CBD6;background:#FFFFFF;color:#14171C;font-size:13px;font-weight:600;cursor:pointer">Export options</button>
+<button type="button" style="height:38px;padding:0 14px;border-radius:9px;border:1px solid #C5CBD6;background:#FFFFFF;color:#14171C;font-size:13px;font-weight:600;cursor:pointer">Import options</button>
+<button type="button" style="height:38px;padding:0 14px;border-radius:9px;border:1px solid #E0A9A3;background:#FFFFFF;color:#B42318;font-size:13px;font-weight:700;cursor:pointer">Clear history</button>
+</div>
+</section>
+
+</main>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1280,"height":3300}}'>
+class Component extends DCLogic {
+renderVals() {
+return {};
+}
+}
+</script>
+</body>
+</html>

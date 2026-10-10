@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Confirmations and permissions</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap">
+<style>
+body{margin:0}
+button{font-family:inherit}
+button:focus-visible,a:focus-visible{outline:2px solid #0B6F6E;outline-offset:2px}
+</style>
+</helmet>
+<div style="width:1240px;height:620px;box-sizing:border-box;padding:40px;background:#E9ECF2;color:#14171C;font-family:'Instrument Sans',system-ui,sans-serif;display:grid;grid-template-columns:repeat(3, minmax(0, 1fr));gap:32px">
+
+<div style="display:flex;flex-direction:column;gap:12px;min-width:0">
+<div style="font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#566070">Newsletter · before the first Level 2 run</div>
+<section aria-labelledby="c1-title" style="flex-grow:1;background:#FFFFFF;border:1px solid #DDE1E8;border-radius:14px;padding:22px;box-shadow:0 10px 30px rgba(20,23,28,0.10);display:flex;flex-direction:column;gap:14px">
+<div style="width:40px;height:40px;border-radius:10px;background:#FFF3DC;color:#8A5200;display:flex;align-items:center;justify-content:center">
+<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4l9 16H3z"/><path d="M12 10v4M12 17.5v.01"/></svg>
+</div>
+<h2 id="c1-title" style="margin:0;font-size:19px;line-height:1.25;font-weight:700;letter-spacing:-0.01em">Submit a real test subscriber?</h2>
+<p style="margin:0;font-size:13.5px;line-height:1.5;color:#3A4352">Level 2 sends <span style="font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12px;background:#EEF0F4;border-radius:4px;padding:1px 5px">qa+northwind@example.com</span> through this store's own newsletter form, then checks that the success message appears.</p>
+<div style="display:flex;flex-direction:column;gap:9px">
+<div style="display:flex;gap:10px;font-size:13px;line-height:1.45;color:#3A4352"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#8A5200" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex:none;margin-top:2px"><path d="M12 4l9 16H3z"/><path d="M12 10v4M12 17.5v.01"/></svg><span>Creates a real customer record and may trigger a welcome email.</span></div>
+<div style="display:flex;gap:10px;font-size:13px;line-height:1.45;color:#3A4352"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#8A5200" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex:none;margin-top:2px"><path d="M12 4l9 16H3z"/><path d="M12 10v4M12 17.5v.01"/></svg><span>Can't be undone from here. Remove it later in Shopify admin under Customers.</span></div>
+<div style="display:flex;gap:10px;font-size:13px;line-height:1.45;color:#3A4352"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#17734A" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex:none;margin-top:2px"><path d="M5 12.5l4.5 4.5L19 7"/></svg><span>The report will name the address that was submitted.</span></div>
+</div>
+<div style="margin-top:auto;display:flex;gap:10px;justify-content:flex-end;padding-top:6px">
+<button type="button" style="height:40px;padding:0 16px;border-radius:10px;border:1px solid #C5CBD6;background:#FFFFFF;color:#14171C;font-size:13.5px;font-weight:600;cursor:pointer">Keep Level 1</button>
+<button type="button" style="height:40px;padding:0 16px;border-radius:10px;border:none;background:#14171C;color:#FFFFFF;font-size:13.5px;font-weight:700;cursor:pointer">Submit test address</button>
+</div>
+</section>
+</div>
+
+<div style="display:flex;flex-direction:column;gap:12px;min-width:0">
+<div style="font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#566070">Cart actions · before the first run</div>
+<section aria-labelledby="c2-title" style="flex-grow:1;background:#FFFFFF;border:1px solid #DDE1E8;border-radius:14px;padding:22px;box-shadow:0 10px 30px rgba(20,23,28,0.10);display:flex;flex-direction:column;gap:14px">
+<div style="width:40px;height:40px;border-radius:10px;background:#E2F3F2;color:#0B6F6E;display:flex;align-items:center;justify-content:center">
+<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 5h2.5l2 10h10l2-7.5H7"/><circle cx="9.5" cy="19" r="1.4"/><circle cx="17" cy="19" r="1.4"/></svg>
+</div>
+<h2 id="c2-title" style="margin:0;font-size:19px;line-height:1.25;font-weight:700;letter-spacing:-0.01em">Run cart actions on this store?</h2>
+<p style="margin:0;font-size:13.5px;line-height:1.5;color:#3A4352">The checker adds a test item to your cart, changes its quantity, then removes it, and confirms the cart and header badge stay in step.</p>
+<div style="display:flex;flex-direction:column;gap:9px">
+<div style="display:flex;gap:10px;font-size:13px;line-height:1.45;color:#3A4352"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#17734A" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex:none;margin-top:2px"><path d="M5 12.5l4.5 4.5L19 7"/></svg><span>Your current cart is saved first (1 item right now).</span></div>
+<div style="display:flex;gap:10px;font-size:13px;line-height:1.45;color:#3A4352"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#17734A" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex:none;margin-top:2px"><path d="M5 12.5l4.5 4.5L19 7"/></svg><span>Only lines the test added are removed, even if you cancel mid-run.</span></div>
+<div style="display:flex;gap:10px;font-size:13px;line-height:1.45;color:#3A4352"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#17734A" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex:none;margin-top:2px"><path d="M5 12.5l4.5 4.5L19 7"/></svg><span>The report states whether your cart ended exactly as it began.</span></div>
+<div style="display:flex;gap:10px;font-size:13px;line-height:1.45;color:#3A4352"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#17734A" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex:none;margin-top:2px"><path d="M5 12.5l4.5 4.5L19 7"/></svg><span>Checkout is never opened.</span></div>
+</div>
+<div style="margin-top:auto;display:flex;gap:10px;justify-content:flex-end;padding-top:6px">
+<button type="button" style="height:40px;padding:0 16px;border-radius:10px;border:1px solid #C5CBD6;background:#FFFFFF;color:#14171C;font-size:13.5px;font-weight:600;cursor:pointer">Not now</button>
+<button type="button" style="height:40px;padding:0 16px;border-radius:10px;border:none;background:#14171C;color:#FFFFFF;font-size:13.5px;font-weight:700;cursor:pointer">Run cart actions</button>
+</div>
+</section>
+</div>
+
+<div style="display:flex;flex-direction:column;gap:12px;min-width:0">
+<div style="font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#566070">Debugging · when mobile view or screenshots are turned on</div>
+<section aria-labelledby="c3-title" style="flex-grow:1;background:#FFFFFF;border:1px solid #DDE1E8;border-radius:14px;padding:22px;box-shadow:0 10px 30px rgba(20,23,28,0.10);display:flex;flex-direction:column;gap:14px">
+<div style="width:40px;height:40px;border-radius:10px;background:#E8EFFD;color:#2757C4;display:flex;align-items:center;justify-content:center">
+<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="7" y="3" width="10" height="18" rx="2.5"/><path d="M11 18h2"/></svg>
+</div>
+<h2 id="c3-title" style="margin:0;font-size:19px;line-height:1.25;font-weight:700;letter-spacing:-0.01em">Allow debugging for mobile view and screenshots?</h2>
+<div style="display:flex;align-items:center;gap:10px;background:#F1F3F7;border:1px solid #DDE1E8;border-radius:8px;padding:8px 10px;font-size:12px;color:#3A4352">
+<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#566070" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex:none"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8v.01"/></svg>
+<span style="flex-grow:1">“Storefront QA” started debugging this browser</span>
+<span style="font-weight:600;color:#566070">Cancel</span>
+</div>
+<p style="margin:0;font-size:13.5px;line-height:1.5;color:#3A4352">Chrome shows this banner while the QA window runs. It is how mobile and tablet sizes and outlined evidence screenshots work.</p>
+<div style="display:flex;flex-direction:column;gap:9px">
+<div style="display:flex;gap:10px;font-size:13px;line-height:1.45;color:#3A4352"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#17734A" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex:none;margin-top:2px"><path d="M5 12.5l4.5 4.5L19 7"/></svg><span>Only the separate QA window is debugged. Your own tabs are not.</span></div>
+<div style="display:flex;gap:10px;font-size:13px;line-height:1.45;color:#3A4352"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2757C4" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex:none;margin-top:2px"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8v.01"/></svg><span>If you skip it, those parts are listed as skipped in the report.</span></div>
+</div>
+<div style="margin-top:auto;display:flex;gap:10px;justify-content:flex-end;padding-top:6px">
+<button type="button" style="height:40px;padding:0 16px;border-radius:10px;border:1px solid #C5CBD6;background:#FFFFFF;color:#14171C;font-size:13.5px;font-weight:600;cursor:pointer">Skip these checks</button>
+<button type="button" style="height:40px;padding:0 16px;border-radius:10px;border:none;background:#14171C;color:#FFFFFF;font-size:13.5px;font-weight:700;cursor:pointer">Allow</button>
+</div>
+</section>
+</div>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1240,"height":620}}'>
+class Component extends DCLogic {
+renderVals() {
+return {};
+}
+}
+</script>
+</body>
+</html>
