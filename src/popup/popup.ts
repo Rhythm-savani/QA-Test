@@ -7,7 +7,6 @@ import {
   CORE_GROUPS,
   GROUP_META,
   allGroups,
-  countOn,
   detectPreset,
   modeLabel,
   recommendedGroups,
@@ -331,9 +330,11 @@ function devicesCard(): HTMLElement {
 
 function groupsCard(): HTMLElement {
   const o = state.options;
-  const on = countOn(o.groups);
-  const total = CORE_GROUPS.length;
-  const off = CORE_GROUPS.filter((g) => !o.groups[g]).map((g) => GROUP_META[g].label);
+  // RUN-2: Shopify-specific groups are hidden on pages that are not a Shopify storefront.
+  const shown = CORE_GROUPS.filter((g) => !(g === 'shopify' && state.tab.isShopify === false));
+  const on = shown.filter((g) => o.groups[g]).length;
+  const total = shown.length;
+  const off = shown.filter((g) => !o.groups[g]).map((g) => GROUP_META[g].label);
   const hasRules = validateCustomRules(o.customRules).rules.length > 0;
   const summary =
     o.preset === 'recommended'
@@ -344,7 +345,7 @@ function groupsCard(): HTMLElement {
   const meter = h(
     'div',
     { class: 'meter', role: 'img', 'aria-label': `${on} of ${total} check groups on` },
-    CORE_GROUPS.map((g) => h('div', { class: 'seg-bar' + (o.groups[g] ? ' on' : '') })),
+    shown.map((g) => h('div', { class: 'seg-bar' + (o.groups[g] ? ' on' : '') })),
   );
   const head = h(
     'div',
@@ -415,7 +416,7 @@ function groupsCard(): HTMLElement {
       ),
     ),
     headings.map((hd) => {
-      const ids = CORE_GROUPS.filter((g) => GROUP_META[g].heading === hd);
+      const ids = shown.filter((g) => GROUP_META[g].heading === hd);
       return h(
         'div',
         null,
@@ -474,7 +475,8 @@ function groupsCard(): HTMLElement {
   );
 }
 
-function optIns(): HTMLElement {
+function optIns(): HTMLElement | null {
+  if (state.tab.isShopify === false) return null;
   const o = state.options;
   const row = (
     title: string,

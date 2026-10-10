@@ -44,6 +44,7 @@ export interface RunEnv {
 }
 
 const SCREENSHOT_CAP = 120;
+const PER_RULE_CAP = 60;
 const TEMP_SHOT_CAP = SCREENSHOT_CAP * 3;
 const SEV_RANK: Record<Severity, number> = { error: 0, warning: 1, info: 2 };
 
@@ -794,10 +795,25 @@ export async function executeRun(pending: PendingRun, env: RunEnv): Promise<RunR
           checkId: c.id,
           status: 'errored',
           findings: [],
-          errorMessage: outcome.error,
+          errorMessage: outcome?.error ?? 'page navigated away during the check',
           durationMs: performance.now() - cs,
         });
         return;
+      }
+      if (c.id === 'CHK-17') {
+        const d = outcome.data as {
+          ran?: boolean;
+          restored?: boolean;
+          beforeCount?: number;
+          finalCount?: number;
+        };
+        if (d.ran) {
+          run.sideEffects.push(
+            d.restored
+              ? `Cart actions on ${new URL(url).pathname}: the cart ended exactly as it began (${d.beforeCount} item${d.beforeCount === 1 ? '' : 's'}).`
+              : `Cart actions on ${new URL(url).pathname}: the cart did NOT return to its original state (expected ${d.beforeCount} items, found ${d.finalCount}). Check it manually.`,
+          );
+        }
       }
       if (c.id === 'CHK-04') {
         Object.assign(
@@ -830,7 +846,16 @@ export async function executeRun(pending: PendingRun, env: RunEnv): Promise<RunR
       }
     };
 
-    for (const c of normal) await runOne(c);
+    for (const c of normal) {
+      await runOne(c);
+      if (c.mutatesState && !live && !env.isCancelled()) {
+        // drawers or notices opened by the check must not leak into later checks
+        await navigate(tab.id, url, opts.pageLoadTimeoutMs);
+        await ensureApi(tab.id);
+        await exec(tab.id, (() =>
+          (window as unknown as G).__sqa!.settle!(800, 6000)) as never).catch(() => undefined);
+      }
+    }
 
     // document-level failure (e.g. a real 404/500 page that was not expected)
     if (
@@ -969,7 +994,7 @@ export async function executeRun(pending: PendingRun, env: RunEnv): Promise<RunR
       );
     }
 
-    run.findings.push(...findings);
+    run.findings.push(...capPerRule(findings, rctx));
     const unlinked = new Set(findings.map((f) => f.id));
     void unlinked;
     return {
@@ -1158,7 +1183,7 @@ function orderChecks(list: Check[]): Check[] {
       : c.id === 'CHK-10'
         ? 80
         : c.mutatesState
-          ? 85
+          ? 95
           : c.id === 'CHK-09'
             ? 99
             : 10;
@@ -1193,4 +1218,32 @@ async function enforceScreenshotCap(run: RunRecord): Promise<void> {
   run.screenshotsDropped = drop.length;
   for (const f of run.findings)
     if (f.screenshotId && dropIds.has(f.screenshotId)) f.screenshotId = undefined;
+}
+
+/** NFR-2: no rule may flood a page; the report says how many were left out. */
+function capPerRule(findings: Finding[], ctx: RunContext): Finding[] {
+  const byRule = new Map<string, Finding[]>();
+  for (const f of findings) {
+    const list = byRule.get(f.rule) ?? [];
+    list.push(f);
+    byRule.set(f.rule, list);
+  }
+  const out: Finding[] = [];
+  for (const [rule, list] of byRule) {
+    if (list.length <= PER_RULE_CAP) {
+      out.push(...list);
+      continue;
+    }
+    out.push(...list.slice(0, PER_RULE_CAP));
+    out.push(
+      makeFinding('RUN', ctx, {
+        rule,
+        severity: 'info',
+        title: 'Findings truncated',
+        message: `Showing ${PER_RULE_CAP} of ${list.length} findings for ${rule} on this page`,
+        selector: `cap:${rule}`,
+      }),
+    );
+  }
+  return out;
 }

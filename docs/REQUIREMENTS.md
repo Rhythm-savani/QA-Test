@@ -1,4 +1,5 @@
 <!-- Source of truth for requirement IDs. Copied from the original build brief. -->
+
 # 1. ROLE AND OUTCOME
 
 You are a senior engineer working alone, end to end, in the current git repository. Build **Storefront QA**: a Chrome (Manifest V3) extension that a Shopify theme developer runs on demand against a storefront (a theme preview URL, a dev store or a live store) to automatically find what is broken or off. It looks for JavaScript and network errors, broken media, dead links, leftover Liquid errors, empty sections, layout overflow, overlapping or unclickable elements, drawers and modals whose close buttons do not work, accessibility problems, slow pages, product-variant and cart inconsistencies, and optionally the newsletter form. The result is a report inside the extension.
@@ -50,22 +51,22 @@ Deliver a working, tested, documented, committed repository. "Done" is defined i
 
 Each check group is a toggle in the popup and options.
 
-| Group | Checks | Default | Changes store state |
-|---|---|---|---|
-| Health | CHK-01, CHK-02 | on | no |
-| Media | CHK-03 | on | no |
-| Links | CHK-04 | on | no |
-| Content | CHK-05, CHK-06, CHK-07 | on | no |
-| Layout | CHK-08 | on | no |
-| Interactions | CHK-09 | on | no |
-| Accessibility | CHK-10 | on | no |
-| Performance | CHK-11 | on | no |
-| Page basics | CHK-12 | on | no |
-| Shopify reads | CHK-13, CHK-14, CHK-15 | on | no (GET requests only) |
-| Newsletter | CHK-16 | **off** | yes, at level 2 only |
-| Cart actions | CHK-17 | **off** | yes |
-| Custom rules | CHK-18 | on if rules exist | per rule |
-| Visual baseline | CHK-19 (X) | off | no |
+| Group           | Checks                 | Default           | Changes store state    |
+| --------------- | ---------------------- | ----------------- | ---------------------- |
+| Health          | CHK-01, CHK-02         | on                | no                     |
+| Media           | CHK-03                 | on                | no                     |
+| Links           | CHK-04                 | on                | no                     |
+| Content         | CHK-05, CHK-06, CHK-07 | on                | no                     |
+| Layout          | CHK-08                 | on                | no                     |
+| Interactions    | CHK-09                 | on                | no                     |
+| Accessibility   | CHK-10                 | on                | no                     |
+| Performance     | CHK-11                 | on                | no                     |
+| Page basics     | CHK-12                 | on                | no                     |
+| Shopify reads   | CHK-13, CHK-14, CHK-15 | on                | no (GET requests only) |
+| Newsletter      | CHK-16                 | **off**           | yes, at level 2 only   |
+| Cart actions    | CHK-17                 | **off**           | yes                    |
+| Custom rules    | CHK-18                 | on if rules exist | per rule               |
+| Visual baseline | CHK-19 (X)             | off               | no                     |
 
 Severity scale: Error (broken for users), Warning (probably wrong or risky), Info (worth knowing).
 
@@ -124,6 +125,7 @@ Severity scale: Error (broken for users), Warning (probably wrong or risky), Inf
 # 8. REPORT, OPTIONS, NON-FUNCTIONAL
 
 ## Report
+
 - **RPT-1 (M)** Opens in a full extension tab (`report.html`) and updates live during the run.
 - **RPT-2 (M)** Header: store origin, theme info, mode, viewports, enabled check groups, duration, date, extension version.
 - **RPT-3 (M)** Summary counts by severity and category. A collapsed "Passed checks" list with counts, so the developer can see what was actually verified, plus a "Skipped" list with reasons.
@@ -137,9 +139,11 @@ Severity scale: Error (broken for users), Warning (probably wrong or risky), Inf
 - **RPT-11 (S)** The extension's own UI is keyboard accessible, has proper contrast and labels, supports light and dark, and has a print stylesheet.
 
 ## Options (OPT-1, M)
+
 Check-group toggles, viewports (all three on by default, at least one required), page sample counts, concurrency, timeouts, ignore lists (console regexes, network URL regexes, selectors to skip), extra click-denylist entries, performance thresholds, newsletter level and test address, cart-actions toggle, custom rules JSON with validation, "keep QA window open", "show console.warn", "strict tap targets", history size. Stored in `chrome.storage.local`, with sane defaults and import/export as JSON.
 
 ## Non-functional
+
 - **NFR-1 (M)** Manifest V3 with `minimum_chrome_version` set to what you actually need. Permissions as small as possible, optional ones requested at point of use (SAF-8).
 - **NFR-2 (M)** Caps everywhere: findings per rule per page, nodes per rule, links per page, interactions per page, pages per run, screenshots per run (120). Report truncation explicitly ("showing 20 of 143").
 - **NFR-3 (M)** A new check must be addable with one file plus one registry line, using the contract in section 9.
@@ -169,19 +173,30 @@ Contract:
 ```ts
 type Severity = 'error' | 'warning' | 'info';
 type Category =
-  | 'health' | 'media' | 'links' | 'content' | 'layout' | 'interaction'
-  | 'a11y' | 'performance' | 'seo' | 'shopify' | 'newsletter' | 'cart' | 'safety';
+  | 'health'
+  | 'media'
+  | 'links'
+  | 'content'
+  | 'layout'
+  | 'interaction'
+  | 'a11y'
+  | 'performance'
+  | 'seo'
+  | 'shopify'
+  | 'newsletter'
+  | 'cart'
+  | 'safety';
 
 interface Finding {
-  id: string;                 // stable fingerprint, see RPT-4
-  checkId: string;            // e.g. 'CHK-08'
-  rule: string;               // e.g. 'layout/horizontal-overflow'
+  id: string; // stable fingerprint, see RPT-4
+  checkId: string; // e.g. 'CHK-08'
+  rule: string; // e.g. 'layout/horizontal-overflow'
   severity: Severity;
   category: Category;
   title: string;
   message: string;
   url: string;
-  viewport: string;           // 'desktop' | 'mobile' | 'tablet'
+  viewport: string; // 'desktop' | 'mobile' | 'tablet'
   selector?: string;
   htmlSnippet?: string;
   rect?: { x: number; y: number; w: number; h: number };
@@ -205,12 +220,13 @@ interface Check<TData = unknown> {
   mutatesState: boolean;
   defaultEnabled: boolean;
   needs?: Array<'debugger' | 'productPage' | 'cartPage' | 'shopify'>;
-  collect(ctx: PageContext): Promise<TData>;        // page side
+  collect(ctx: PageContext): Promise<TData>; // page side
   analyze(data: TData, ctx: RunContext): Finding[]; // pure
 }
 ```
 
 Other guidance:
+
 - Selector generator: prefer id, then stable data attributes, then a short class and `:nth-of-type` chain. Unit test it.
 - Money normalisation: strip everything but digits and compare minor units. Unit test several locales.
 - Persist runs in IndexedDB and options in `chrome.storage.local`.
@@ -219,6 +235,7 @@ Other guidance:
 # 10. TEST STRATEGY AND MILESTONES
 
 ## Tests
+
 - **TST-1 Unit (Vitest).** All `analyze` functions, grouping and diff, sitemap parser and sampler, origin rewriting and preview-parameter carry-over, selector generator, money normaliser, severity mapping, options and custom-rules validation, exporters and escaping.
 - **TST-2 Fixture site.** `fixtures/server.mjs`, a plain Node server on a random port, serving a `clean` Dawn-like site and a `broken` Dawn-like site (HTML structured like Dawn: `cart-drawer`, `details-modal`, `header-drawer`, `slider-component`, `variant-selects`, newsletter form), with mocked Shopify endpoints: `/sitemap.xml` (listing a different primary domain on purpose), `/products/<handle>.js`, `/cart.js`, `/cart/add.js`, `/cart/change.js`, `/search`, a predictive search endpoint, `/contact` (newsletter POST that redirects with `customer_posted=true`), `/checkout` and `/account/logout` (both record hits), and a `/__log` beacon for click sentinels.
 - **TST-3 E2E (Playwright).** Launch Chromium with a persistent context and the built extension. Add an E2E-only build flag that moves the optional permissions into required ones, so tests need no user gesture, and that allows starting a run through a URL such as `run.html?auto=1&mode=quick&url=...`. This hook must be compiled out of the production build and a test must prove that. If headless cannot load extensions or use `chrome.debugger`, run headed under xvfb and document it. The E2E suite must also cover: Pages mode (a saved list runs only those pages, preview parameters carried over, empty list disables Run), the all-viewports default (a default run produces desktop, tablet and mobile results, narrowing to one viewport works, zero viewports is blocked), the popup Customize view (preset switches to Custom on a single toggle, saved options survive reopening the popup), and that findings tied to a visible element have a screenshot while console and network findings do not.
@@ -227,53 +244,54 @@ Other guidance:
 
 The screens are designed and live in `docs/design/` as `.dc.html` files (plain HTML with inline styles, readable as source) plus `canvas.json`, which lists them. Copy the layout, copy text, spacing, colours (graphite and teal), and type (Instrument Sans for text, JetBrains Mono for paths, selectors and code) from them, and build the real UI with accessible semantics (real buttons, `aria-pressed`, `role="switch"`, visible focus, labelled controls). The files are static mockups with sample data; do not copy sample values such as `northwind-demo.myshopify.com` into product code.
 
-| File | Screen |
-|---|---|
-| `Main.dc.html` | Popup, Quick mode (default view with All devices and collapsed check groups) |
-| `Pages.dc.html` | Popup, Pages mode (list of specific pages) |
-| `Customize.dc.html` | Popup, devices set to Choose and check groups expanded |
-| `Confirmations.dc.html` | Opt-in confirmations (newsletter Level 2, cart actions) and the debugging-permission prompt |
-| `ReportRunning.dc.html` | Report page while a run is in progress |
+| File                     | Screen                                                                                                    |
+| ------------------------ | --------------------------------------------------------------------------------------------------------- |
+| `Main.dc.html`           | Popup, Quick mode (default view with All devices and collapsed check groups)                              |
+| `Pages.dc.html`          | Popup, Pages mode (list of specific pages)                                                                |
+| `Customize.dc.html`      | Popup, devices set to Choose and check groups expanded                                                    |
+| `Confirmations.dc.html`  | Opt-in confirmations (newsletter Level 2, cart actions) and the debugging-permission prompt               |
+| `ReportRunning.dc.html`  | Report page while a run is in progress                                                                    |
 | `ReportFinished.dc.html` | Finished report with summary, filters, grouped findings, evidence screenshot, compare, passed and skipped |
-| `Options.dc.html` | Options page |
+| `Options.dc.html`        | Options page                                                                                              |
 
 If a design file and a requirement disagree, the requirement wins and the difference goes into `docs/DECISIONS.md`.
 
 ## Acceptance table (the `broken` fixture must produce each finding; the `clean` fixture must not)
 
-| # | Seeded in `broken` fixture | Expected rule | Severity |
-|---|---|---|---|
-| 1 | Uncaught exception on load | `health/uncaught-exception` | error |
-| 2 | `console.error` call | `health/console-error` | error |
-| 3 | Unhandled promise rejection | `health/unhandled-rejection` | error |
-| 4 | Image returning 404 | `media/broken-image` and `health/network-failure` | error |
-| 5 | `<img>` without alt | `media/missing-alt` | warning |
-| 6 | Stretched image | `media/stretched-image` | warning |
-| 7 | Text "Liquid error (...)" and "translation missing: ..." | `content/liquid-error`, `content/translation-missing` | error |
-| 8 | Empty section `shopify-section-template--1__empty` | `content/empty-section` | warning |
-| 9 | Internal link to a 404 page | `links/broken-internal` | error |
-| 10 | `href="#"` link | `links/dead-anchor` | warning |
-| 11 | 600 px element on the 390 px viewport | `layout/horizontal-overflow` | error |
-| 12 | Button covered by an overlay | `layout/obscured-interactive` | error |
-| 13 | Modal whose close button is covered | `interaction/close-obscured` | error |
-| 14 | Modal whose close button has no handler | `interaction/close-no-effect` | error |
-| 15 | Drawer that leaves body scroll locked | `interaction/scroll-lock-stuck` | error |
-| 16 | Drawer that ignores Escape | `interaction/escape-not-closing` | warning |
-| 17 | Trigger that does nothing | `interaction/trigger-no-effect` | warning |
-| 18 | Carousel next button that does nothing | `interaction/carousel-no-effect` | warning |
-| 19 | Low-contrast text, unlabeled input | `a11y/axe:color-contrast`, `a11y/axe:label` | per axe impact |
-| 20 | LCP image with `loading="lazy"` | `performance/lcp-lazy` | warning |
-| 21 | Variant price in the DOM differs from JSON | `shopify/variant-price-mismatch` | error |
-| 22 | Sold-out variant with enabled add to cart | `shopify/variant-availability-mismatch` | error |
-| 23 | Cart badge shows 3, `/cart.js` says 1 | `shopify/cart-badge-mismatch` | error |
-| 24 | No `<title>`, two `h1` | `seo/title-missing`, `seo/h1-count` | warning |
-| 25 | Tiny tap target on mobile | `layout/tap-target-small` | warning |
-| 26 | Newsletter input without `type=email` or `required`; and a variant of the fixture with no success message after submit | `newsletter/form-invalid` (level 1), `newsletter/no-success-state` (level 2) | warning / error |
-| 27 | Font file returning 404 | `content/font-failed` | warning |
-| 28 | Different `Shopify.theme.id` on one page of a Full run | `shopify/theme-changed` | error |
-| 29 | XSS payload in page text and attributes | no finding; the report and HTML export must show it as inert text and no script may run | n/a |
+| #   | Seeded in `broken` fixture                                                                                             | Expected rule                                                                           | Severity        |
+| --- | ---------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- | --------------- |
+| 1   | Uncaught exception on load                                                                                             | `health/uncaught-exception`                                                             | error           |
+| 2   | `console.error` call                                                                                                   | `health/console-error`                                                                  | error           |
+| 3   | Unhandled promise rejection                                                                                            | `health/unhandled-rejection`                                                            | error           |
+| 4   | Image returning 404                                                                                                    | `media/broken-image` and `health/network-failure`                                       | error           |
+| 5   | `<img>` without alt                                                                                                    | `media/missing-alt`                                                                     | warning         |
+| 6   | Stretched image                                                                                                        | `media/stretched-image`                                                                 | warning         |
+| 7   | Text "Liquid error (...)" and "translation missing: ..."                                                               | `content/liquid-error`, `content/translation-missing`                                   | error           |
+| 8   | Empty section `shopify-section-template--1__empty`                                                                     | `content/empty-section`                                                                 | warning         |
+| 9   | Internal link to a 404 page                                                                                            | `links/broken-internal`                                                                 | error           |
+| 10  | `href="#"` link                                                                                                        | `links/dead-anchor`                                                                     | warning         |
+| 11  | 600 px element on the 390 px viewport                                                                                  | `layout/horizontal-overflow`                                                            | error           |
+| 12  | Button covered by an overlay                                                                                           | `layout/obscured-interactive`                                                           | error           |
+| 13  | Modal whose close button is covered                                                                                    | `interaction/close-obscured`                                                            | error           |
+| 14  | Modal whose close button has no handler                                                                                | `interaction/close-no-effect`                                                           | error           |
+| 15  | Drawer that leaves body scroll locked                                                                                  | `interaction/scroll-lock-stuck`                                                         | error           |
+| 16  | Drawer that ignores Escape                                                                                             | `interaction/escape-not-closing`                                                        | warning         |
+| 17  | Trigger that does nothing                                                                                              | `interaction/trigger-no-effect`                                                         | warning         |
+| 18  | Carousel next button that does nothing                                                                                 | `interaction/carousel-no-effect`                                                        | warning         |
+| 19  | Low-contrast text, unlabeled input                                                                                     | `a11y/axe:color-contrast`, `a11y/axe:label`                                             | per axe impact  |
+| 20  | LCP image with `loading="lazy"`                                                                                        | `performance/lcp-lazy`                                                                  | warning         |
+| 21  | Variant price in the DOM differs from JSON                                                                             | `shopify/variant-price-mismatch`                                                        | error           |
+| 22  | Sold-out variant with enabled add to cart                                                                              | `shopify/variant-availability-mismatch`                                                 | error           |
+| 23  | Cart badge shows 3, `/cart.js` says 1                                                                                  | `shopify/cart-badge-mismatch`                                                           | error           |
+| 24  | No `<title>`, two `h1`                                                                                                 | `seo/title-missing`, `seo/h1-count`                                                     | warning         |
+| 25  | Tiny tap target on mobile                                                                                              | `layout/tap-target-small`                                                               | warning         |
+| 26  | Newsletter input without `type=email` or `required`; and a variant of the fixture with no success message after submit | `newsletter/form-invalid` (level 1), `newsletter/no-success-state` (level 2)            | warning / error |
+| 27  | Font file returning 404                                                                                                | `content/font-failed`                                                                   | warning         |
+| 28  | Different `Shopify.theme.id` on one page of a Full run                                                                 | `shopify/theme-changed`                                                                 | error           |
+| 29  | XSS payload in page text and attributes                                                                                | no finding; the report and HTML export must show it as inert text and no script may run | n/a             |
 
 Safety sentinels that must hold (each is a test):
+
 - "Log out" button and `/account/logout` link: zero clicks and zero hits.
 - Element leading to `/checkout`: never clicked, any navigation to it aborted, zero hits on `/checkout`, and `safety/left-safe-zone` recorded if it was attempted.
 - With newsletter and cart opt-ins off: zero POSTs to `/contact`, `/cart/add.js` and `/cart/change.js`.
@@ -282,6 +300,7 @@ Safety sentinels that must hold (each is a test):
 - `clean` fixture: zero Errors and zero Warnings, except an explicit, documented allow-list kept in the test file.
 
 ## Milestones (commit and push after each; tests green before moving on)
+
 1. **M0 Scaffold.** Tooling (Vite, TypeScript strict, ESLint, Prettier, Vitest, Playwright), manifest, build, placeholder icons generated by a script, CI workflow, README skeleton, docs folder with this requirement list saved as `docs/REQUIREMENTS.md`.
 2. **M1 Core.** Types, registry, runner, run persistence, orchestrator, QA window and tab management, instrumented load and settle logic, console and network collection, popup with all four modes (Quick, Pages, Full, Live tab), minimal live report page, Live tab mode, fixture server with `clean` and `broken` sites.
 3. **M2 Passive checks.** CHK-01 to CHK-07, CHK-10, CHK-11, CHK-12 with unit tests and acceptance rows 1 to 10, 19, 20, 24, 27, 29.

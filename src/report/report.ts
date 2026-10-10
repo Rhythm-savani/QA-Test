@@ -420,7 +420,7 @@ function filtersBar(groups: FindingGroup[], run: RunRecord): HTMLElement {
       'data-sev': sev ?? 'all',
       on: {
         click: () => {
-          ui.filters = { ...f, severities: sev ? [sev] : undefined };
+          ui.filters = { ...ui.filters, severities: sev ? [sev] : undefined };
           render();
         },
       },
@@ -469,14 +469,14 @@ function filtersBar(groups: FindingGroup[], run: RunRecord): HTMLElement {
       'f-cat',
       [['', 'All categories'], ...cats.map((c) => [c, CAT_LABEL[c]] as [string, string])],
       f.categories?.[0] ?? '',
-      (v) => (ui.filters = { ...f, categories: v ? [v as Category] : undefined }),
+      (v) => (ui.filters = { ...ui.filters, categories: v ? [v as Category] : undefined }),
     ),
     sel(
       'Page',
       'f-page',
       [['', `All ${pages.length} pages`], ...pages.map((p) => [p, pathOf(p)] as [string, string])],
       f.page ?? '',
-      (v) => (ui.filters = { ...f, page: v || undefined }),
+      (v) => (ui.filters = { ...ui.filters, page: v || undefined }),
     ),
     sel(
       'Viewport',
@@ -486,7 +486,7 @@ function filtersBar(groups: FindingGroup[], run: RunRecord): HTMLElement {
         ...vps.map((v) => [v, VP_LABEL[v]] as [string, string]),
       ],
       f.viewport ?? '',
-      (v) => (ui.filters = { ...f, viewport: v || undefined }),
+      (v) => (ui.filters = { ...ui.filters, viewport: v || undefined }),
     ),
     h(
       'label',
@@ -499,7 +499,7 @@ function filtersBar(groups: FindingGroup[], run: RunRecord): HTMLElement {
         value: f.text ?? '',
         on: {
           input: (e) => {
-            ui.filters = { ...f, text: (e.target as HTMLInputElement).value || undefined };
+            ui.filters = { ...ui.filters, text: (e.target as HTMLInputElement).value || undefined };
             renderListOnly();
           },
         },
@@ -793,6 +793,29 @@ function finishedView(run: RunRecord): HTMLElement {
             h('div', { class: 'muted', text: 'No earlier run of this store is stored.' }),
           )
         : null,
+    ui.history.length > 1
+      ? h(
+          'section',
+          { class: 'card pad', 'aria-labelledby': 'hist-title', id: 'history' },
+          h('h2', { id: 'hist-title', text: `Run history (last ${ui.history.length})` }),
+          ui.history.map((r) => {
+            const sm = summarize(groupFindings(r.findings));
+            return h(
+              'div',
+              { class: 'prow' },
+              h('a', {
+                class: 'grow',
+                href: chrome.runtime.getURL(`report.html?view=${r.id}`),
+                text: `${new Date(r.startedAt).toLocaleString()} · ${modeLabel(r.config.mode)}${r.id === run.id ? ' (this report)' : ''}`,
+              }),
+              h('span', {
+                class: 'muted small',
+                text: `${sm.bySeverity.error} errors · ${sm.bySeverity.warning} warnings · ${sm.bySeverity.info} info`,
+              }),
+            );
+          }),
+        )
+      : null,
     h(
       'section',
       { class: 'card pad', 'aria-labelledby': 'pass-title' },

@@ -9,3 +9,4 @@ playwright-report/
 .pwprof-*/
 .tmp-*/
 .tmp-*
+.tmp-*.log

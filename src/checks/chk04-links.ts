@@ -97,6 +97,11 @@ export const chk04: Check<Data> = {
         } else {
           let res = await fetch(href, { method: 'HEAD' });
           if (res.status === 405 || res.status === 501) res = await fetch(href, { method: 'GET' });
+          if (res.status === 429) {
+            // back off once, then report the store as rate limiting us instead of a broken link
+            await new Promise((r) => setTimeout(r, 2000));
+            res = await fetch(href, { method: 'HEAD' });
+          }
           status = res.status;
         }
       } catch {
@@ -154,7 +159,19 @@ export const chk04: Check<Data> = {
         );
       }
       const status = data.statuses[l.href];
-      if (status !== undefined && !reported.has(l.href)) {
+      if (status === 429 && !reported.has('429')) {
+        reported.add('429');
+        out.push(
+          makeFinding('CHK-04', ctx, {
+            rule: 'links/capped',
+            severity: 'info',
+            title: 'Store rate-limited the link check',
+            message: 'The store answered HTTP 429; some links were not verified.',
+            selector: 'links:429',
+          }),
+        );
+      }
+      if (status !== undefined && status !== 429 && !reported.has(l.href)) {
         if (l.sameOrigin && (status === 0 || status >= 400)) {
           reported.add(l.href);
           out.push(

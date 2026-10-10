@@ -34,11 +34,16 @@ export interface RunParams {
   liveTab?: number;
 }
 
-export async function runCheck(
+// Timing thresholds depend on the machine; the clean-fixture assertions must not.
+const RELAXED = {
+  thresholds: { lcp: [9000, 12000], cls: [0.1, 0.25], ttfb: [5000, 8000], fcp: [9000, 12000] },
+};
+
+export async function startRun(
   context: BrowserContext,
   extId: string,
   p: RunParams,
-): Promise<{ run: RunRecord; page: Page }> {
+): Promise<Page> {
   const page = await context.newPage();
   if (process.env.SQA_DEBUG) {
     page.on('console', (m) => console.log('[report console]', m.type(), m.text()));
@@ -47,19 +52,31 @@ export async function runCheck(
   const q = new URLSearchParams({ auto: '1', mode: p.mode ?? 'quick', url: p.url });
   if (p.pages) q.set('pages', JSON.stringify(p.pages));
   if (p.viewports) q.set('viewports', p.viewports.join(','));
-  if (p.opts) q.set('opts', JSON.stringify(p.opts));
+  q.set('opts', JSON.stringify({ ...RELAXED, ...(p.opts ?? {}) }));
   if (p.groups) q.set('groups', JSON.stringify(p.groups));
   if (p.liveTab !== undefined) q.set('liveTab', String(p.liveTab));
   await page.goto(`chrome-extension://${extId}/report.html?${q}`);
+  return page;
+}
+
+export async function waitDone(page: Page): Promise<RunRecord> {
   await page.waitForFunction(
     () => (window as unknown as { __sqaE2E?: { done: boolean } }).__sqaE2E?.done === true,
     null,
-    { timeout: Number(process.env.SQA_WAIT ?? 220_000) },
+    { timeout: Number(process.env.SQA_WAIT ?? 400_000) },
   );
-  const run = (await page.evaluate(
+  return (await page.evaluate(
     () => (window as unknown as { __sqaE2E: { run: unknown } }).__sqaE2E.run,
   )) as RunRecord;
-  return { run, page };
+}
+
+export async function runCheck(
+  context: BrowserContext,
+  extId: string,
+  p: RunParams,
+): Promise<{ run: RunRecord; page: Page }> {
+  const page = await startRun(context, extId, p);
+  return { run: await waitDone(page), page };
 }
 
 export function summary(

@@ -142,11 +142,16 @@ function install() {
     }
     if (target) target.scrollIntoView({ block: 'center', inline: 'center' });
     let r: Rect | null = target ? rectOf(target) : rect;
-    if (!r || r.w <= 0 || r.h <= 0) return null;
+    if (!r || r.w <= 0) return null;
+    // zero-height elements (empty sections) still get a visible marker strip
+    if (r.h < 24) r = { ...r, h: 24 };
     if (!target) window.scrollTo(Math.max(0, r.x - 40), Math.max(0, r.y - 200));
     const pad = 100;
     mark(r);
-    r = target ? rectOf(target) : r;
+    if (target) {
+      const again = rectOf(target);
+      r = { ...again, h: Math.max(again.h, 24) };
+    }
     const x = Math.max(0, r.x - pad);
     const y = Math.max(0, r.y - pad);
     return {

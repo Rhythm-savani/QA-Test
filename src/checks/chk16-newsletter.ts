@@ -112,9 +112,10 @@ export const chk16: Check<Data> = {
         l2.finalUrl = res.url;
         const html = await res.text();
         l2.captcha = /\/challenge/.test(res.url) || /g-recaptcha|h-captcha|hcaptcha/i.test(html);
-        l2.success =
-          /customer_posted=true/.test(res.url) ||
-          /newsletter-form__message--success|form--success|Thanks for subscribing/i.test(html);
+        // The redirect parameter alone is not proof: the visitor must actually be shown the message.
+        l2.success = /newsletter-form__message--success|form--success|Thanks for subscribing/i.test(
+          html,
+        );
       } catch (e) {
         l2.error = (e as Error).message;
       }

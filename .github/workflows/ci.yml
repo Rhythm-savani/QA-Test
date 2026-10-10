@@ -12,6 +12,6 @@ jobs:
       - run: npm run typecheck
       - run: npm test
       - run: npm run build
-      - run: npx playwright install --with-deps chromium
-      # Extensions need a real (headed) Chromium; xvfb provides the display.
+      # The harness spawns the runner's installed Google Chrome and loads the extension through
+      # Extensions.loadUnpacked; xvfb provides a display in case headless is unavailable.
       - run: xvfb-run --auto-servernum npm run test:e2e

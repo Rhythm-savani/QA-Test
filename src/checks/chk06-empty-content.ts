@@ -79,7 +79,7 @@ export const chk06: Check<Data> = {
           message: `Section "${s.type}" renders no visible content (height ${Math.round(s.height)}px)`,
           selector: s.selector,
           htmlSnippet: s.snippet,
-          rect: s.height >= 1 ? s.rect : undefined,
+          rect: s.rect,
           meta: { sectionType: s.type, sectionId: s.id },
         }),
       );
