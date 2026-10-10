@@ -6,3 +6,6 @@ playwright-report/
 .claude/
 *.log
 .DS_Store
+.pwprof-*/
+.tmp-*/
+.tmp-*
