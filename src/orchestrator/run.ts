@@ -89,10 +89,13 @@ function navigate(
       resolve(v);
     };
     const onOk = (d: chrome.webNavigation.WebNavigationFramedCallbackDetails) => {
-      if (d.tabId === tabId && d.frameId === 0) finish('ok');
+      // events for an earlier, blocked navigation (e.g. /checkout) may still be in flight
+      if (d.tabId === tabId && d.frameId === 0 && !isCheckoutUrl(d.url)) finish('ok');
     };
     const onErr = (d: chrome.webNavigation.WebNavigationFramedErrorCallbackDetails) => {
-      if (d.tabId === tabId && d.frameId === 0) finish('error');
+      if (d.tabId !== tabId || d.frameId !== 0) return;
+      if (isCheckoutUrl(d.url) || d.url.split('#')[0] !== url.split('#')[0]) return;
+      finish('error');
     };
     const timer = setTimeout(() => finish('timeout'), timeoutMs);
     chrome.webNavigation.onCompleted.addListener(onOk);
