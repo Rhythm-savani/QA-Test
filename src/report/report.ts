@@ -172,6 +172,15 @@ function headerBar(run: RunRecord | null): HTMLElement {
                 )
               : null,
           ),
+          run.config.groups.visual
+            ? h('button', {
+                type: 'button',
+                class: 'btn',
+                id: 'btn-baseline',
+                text: 'Save this run as baseline',
+                on: { click: () => void saveBaseline() },
+              })
+            : null,
           h('button', {
             type: 'button',
             class: 'btn primary',
@@ -220,6 +229,18 @@ async function doExport(kind: 'html' | 'json' | 'md') {
     }, 2500);
   }
   render();
+}
+
+async function saveBaseline() {
+  const n = await db.saveRunAsBaseline(ui.run!.id);
+  ui.message = n
+    ? `Saved ${n} page view${n === 1 ? '' : 's'} as the visual baseline.`
+    : 'This run has no visual captures to save.';
+  render();
+  setTimeout(() => {
+    ui.message = '';
+    render();
+  }, 3000);
 }
 
 async function runAgain() {

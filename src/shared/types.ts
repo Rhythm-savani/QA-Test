@@ -223,6 +223,9 @@ export interface Options {
   variantsMax: number;
   confirmedNewsletterL2: boolean;
   confirmedCartActions: boolean;
+  /** CHK-19: selectors whose regions are blanked out before diffing. */
+  visualMask: string[];
+  visualThresholdPct: number;
 }
 
 export type RunStatus = 'running' | 'finished' | 'cancelled' | 'interrupted';

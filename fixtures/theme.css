@@ -448,3 +448,24 @@ fieldset {
 [hidden] {
   display: none !important;
 }
+
+.header__menu .has-sub {
+  position: relative;
+}
+.header__menu .submenu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  min-width: 180px;
+  margin: 0;
+  padding: 4px 0;
+  list-style: none;
+  background: #fff;
+  border: 1px solid #ddd;
+  z-index: 20;
+}
+.header__menu .has-sub:hover > .submenu:not(.submenu--dead),
+.header__menu .has-sub:focus-within > .submenu:not(.submenu--dead) {
+  display: block;
+}

@@ -15,6 +15,27 @@ export interface ScreenshotRecord {
   h: number;
 }
 
+export interface BaselineRecord {
+  key: string; // base|<origin>|<path>|<viewport> or cur|<runId>|<origin>|<path>|<viewport>
+  kind: 'base' | 'cur';
+  runId?: string;
+  origin: string;
+  path: string;
+  viewport: string;
+  dataUrl: string;
+  w: number;
+  h: number;
+  cssWidth: number;
+  cssHeight: number;
+  masks: { x: number; y: number; w: number; h: number }[];
+  at: number;
+}
+
+export const baselineKey = (origin: string, path: string, viewport: string) =>
+  `base|${origin}|${path}|${viewport}`;
+export const currentKey = (runId: string, origin: string, path: string, viewport: string) =>
+  `cur|${runId}|${origin}|${path}|${viewport}`;
+
 let dbp: Promise<IDBDatabase> | null = null;
 
 function open(): Promise<IDBDatabase> {
@@ -84,10 +105,44 @@ export async function deleteScreenshot(id: string): Promise<void> {
 export async function deleteRun(id: string): Promise<void> {
   const db = await open();
   for (const s of await screenshotsForRun(id)) await deleteScreenshot(s.id);
+  const dbx = await open();
+  for (const b of await baselinesForRun(id)) {
+    await wrap(dbx.transaction('baselines', 'readwrite').objectStore('baselines').delete(b.key));
+  }
   await wrap(db.transaction('runs', 'readwrite').objectStore('runs').delete(id));
 }
 /** RPT-8: keep the newest `keep` runs per origin. */
 export async function pruneHistory(origin: string, keep: number): Promise<void> {
   const runs = await listRuns(origin);
   for (const r of runs.slice(keep)) await deleteRun(r.id);
+}
+
+export async function putBaseline(r: BaselineRecord): Promise<void> {
+  const db = await open();
+  await wrap(db.transaction('baselines', 'readwrite').objectStore('baselines').put(r));
+}
+export async function getBaseline(key: string): Promise<BaselineRecord | undefined> {
+  const db = await open();
+  return wrap(db.transaction('baselines').objectStore('baselines').get(key));
+}
+export async function baselinesForRun(runId: string): Promise<BaselineRecord[]> {
+  const db = await open();
+  const all = (await wrap(
+    db.transaction('baselines').objectStore('baselines').getAll(),
+  )) as BaselineRecord[];
+  return all.filter((b) => b.kind === 'cur' && b.runId === runId);
+}
+/** CHK-19: promote every capture of a run to the stored baseline for its origin/path/viewport. */
+export async function saveRunAsBaseline(runId: string): Promise<number> {
+  const cur = await baselinesForRun(runId);
+  for (const c of cur) {
+    await putBaseline({
+      ...c,
+      kind: 'base',
+      key: baselineKey(c.origin, c.path, c.viewport),
+      runId,
+      at: Date.now(),
+    });
+  }
+  return cur.length;
 }

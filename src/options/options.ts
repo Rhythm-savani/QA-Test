@@ -181,6 +181,12 @@ function render() {
       'Changes store data',
     ),
     toggle(
+      'Visual baseline',
+      'Compares each page with a saved baseline screenshot and shows a diff. Needs the debugging permission.',
+      !!opts.groups.visual,
+      (v) => (opts.groups.visual = v),
+    ),
+    toggle(
       'Custom rules',
       'Runs only when you have defined rules below.',
       !!opts.groups.custom,

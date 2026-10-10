@@ -39,6 +39,7 @@ export const chk09: Check<IxData> = {
         skipSelectors: ctx.options.skipSelectors,
         denylistExtra: ctx.options.denylistExtra,
         deadline: performance.now() + budget,
+        hover: ctx.viewport === 'desktop',
       },
       makeIO(),
     );

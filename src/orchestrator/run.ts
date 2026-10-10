@@ -34,6 +34,8 @@ import { CdpSession, type RpcRequest } from './cdp';
 import { installNetGuard, removeNetGuard } from './safety-net';
 import type { IxRun, RawIx } from '../engine/interactions';
 import { groupFindings } from '../report/grouping';
+import { diffImages } from './visual';
+import type { VisualData, VisualResult } from '../checks/chk19-visual-baseline';
 
 declare const __VERSION__: string;
 const VERSION = typeof __VERSION__ === 'string' ? __VERSION__ : '0.0.0';
@@ -399,6 +401,13 @@ export async function executeRun(pending: PendingRun, env: RunEnv): Promise<RunR
         case 'click':
           await cdp.mouseClick(Number(req.x), Number(req.y));
           return true;
+        case 'move':
+          await cdp.send('Input.dispatchMouseEvent', {
+            type: 'mouseMoved',
+            x: Number(req.x),
+            y: Number(req.y),
+          });
+          return true;
         case 'key':
           await cdp.keyPress(req.key === 'Escape' ? 'Escape' : 'Escape');
           return true;
@@ -746,6 +755,7 @@ export async function executeRun(pending: PendingRun, env: RunEnv): Promise<RunR
       }
       if (c.id === 'CHK-17') params.cartConfirmed = opts.confirmedCartActions;
       if (c.id === 'CHK-18') params.customRules = customRules;
+      if (c.id === 'CHK-19') params.maskSelectors = opts.visualMask;
       const pctx: PageContext = { viewport: vpName, options: pageOpts, params };
       // SAF-5: opt-in state-changing checks are bracketed by a cart snapshot and restore
       let cartBefore: CartSnap | null = null;
@@ -815,6 +825,13 @@ export async function executeRun(pending: PendingRun, env: RunEnv): Promise<RunR
           );
         }
       }
+      let visualDiffId: string | undefined;
+      if (c.id === 'CHK-19' && cdp) {
+        const vd = outcome.data as VisualData;
+        const res = await visualCompare(cdp, vd, vp.dpr, vpName);
+        vd.result = res.result;
+        visualDiffId = res.diffId;
+      }
       if (c.id === 'CHK-04') {
         Object.assign(
           linkCache,
@@ -827,6 +844,8 @@ export async function executeRun(pending: PendingRun, env: RunEnv): Promise<RunR
           cdpNetwork: c.id === 'CHK-02' ? takeNet() : undefined,
         };
         const fs = c.analyze(outcome.data as never, ctxForCheck);
+        if (visualDiffId)
+          for (const f of fs) if (f.rule === 'visual/diff') f.screenshotId = visualDiffId;
         const status = fs.some((f) => f.severity !== 'info') ? 'failed' : 'passed';
         results.push({
           checkId: c.id,
@@ -1005,6 +1024,67 @@ export async function executeRun(pending: PendingRun, env: RunEnv): Promise<RunR
       isShopify: facts.isShopify,
       durationMs: performance.now() - t0,
     };
+  }
+
+  /** CHK-19: capture the viewport, store it for "Save as baseline", and diff against the baseline. */
+  async function visualCompare(
+    cdp: CdpSession,
+    data: VisualData,
+    dpr: number,
+    vpName: ViewportName,
+  ): Promise<{ result: VisualResult; diffId?: string }> {
+    try {
+      const img = await captureClip(cdp, { x: 0, y: 0, w: data.cssWidth, h: data.cssHeight }, dpr);
+      if (!img) return { result: { state: 'error', message: 'Could not capture the viewport.' } };
+      const f = img.w / data.cssWidth;
+      const origin = cfg.origin;
+      await db.putBaseline({
+        key: db.currentKey(run.id, origin, data.path, vpName),
+        kind: 'cur',
+        runId: run.id,
+        origin,
+        path: data.path,
+        viewport: vpName,
+        dataUrl: img.dataUrl,
+        w: img.w,
+        h: img.h,
+        cssWidth: data.cssWidth,
+        cssHeight: data.cssHeight,
+        masks: data.masks,
+        at: Date.now(),
+      });
+      const base = await db.getBaseline(db.baselineKey(origin, data.path, vpName));
+      if (!base) return { result: { state: 'no-baseline' } };
+      const out = await diffImages(base.dataUrl, img.dataUrl, [...base.masks, ...data.masks], f);
+      if (out.sizeChanged) {
+        return {
+          result: {
+            state: 'size-changed',
+            message: `Baseline is ${base.w}x${base.h}px, this capture is ${img.w}x${img.h}px.`,
+          },
+        };
+      }
+      if (out.ratio * 100 <= opts.visualThresholdPct)
+        return { result: { state: 'same', ratio: out.ratio } };
+      let diffId: string | undefined;
+      if (out.diffDataUrl) {
+        diffId = `${run.id}:v${++shotCount}`;
+        await db.putScreenshot({
+          id: diffId,
+          runId: run.id,
+          findingId: 'visual',
+          viewport: vpName,
+          severity: 1,
+          dataUrl: out.diffDataUrl,
+          w: out.w,
+          h: out.h,
+        });
+        run.screenshotIds.push(diffId);
+      }
+      return { result: { state: 'diff', ratio: out.ratio }, diffId };
+    } catch (e) {
+      return { result: { state: 'error', message: errMsg(e) } };
+    }
   }
 
   async function ensureApi(tabId: number) {

@@ -51,7 +51,7 @@ describe('registry', () => {
   it('lists unique ids and only known categories/groups', () => {
     const ids = CHECKS.map((c) => c.id);
     expect(new Set(ids).size).toBe(ids.length);
-    expect(ids).toHaveLength(18);
+    expect(ids).toHaveLength(19);
   });
   it('gives every rule a title and category', () => {
     for (const [k, v] of Object.entries(RULES)) {
@@ -660,5 +660,33 @@ describe('visual findings (RPT-7)', () => {
     expect(isVisualFinding(f('health/network-failure'))).toBe(false);
     expect(isVisualFinding(f('seo/title-missing', 'head > title'))).toBe(false);
     expect(isVisualFinding(f('links/broken-internal', 'a'))).toBe(false);
+  });
+});
+
+import type { VisualResult } from '../src/checks/chk19-visual-baseline';
+
+describe('CHK-19 visual baseline', () => {
+  const data = (result: VisualResult) => ({
+    path: '/',
+    cssWidth: 1440,
+    cssHeight: 900,
+    masks: [],
+    result,
+  });
+  it('is quiet when the page matches and info-only without a baseline', async () => {
+    const { chk19 } = await import('../src/checks/chk19-visual-baseline');
+    expect(chk19.analyze(data({ state: 'same', ratio: 0 }), ctx())).toHaveLength(0);
+    expect(rules(chk19.analyze(data({ state: 'no-baseline' }), ctx()))).toEqual([
+      'info:visual/no-baseline',
+    ]);
+  });
+  it('warns on a diff and on a size change', async () => {
+    const { chk19 } = await import('../src/checks/chk19-visual-baseline');
+    const d = chk19.analyze(data({ state: 'diff', ratio: 0.0123 }), ctx());
+    expect(rules(d)).toEqual(['warning:visual/diff']);
+    expect(d[0].message).toMatch(/1\.23%/);
+    expect(rules(chk19.analyze(data({ state: 'size-changed', message: 'x' }), ctx()))).toEqual([
+      'warning:visual/size-changed',
+    ]);
   });
 });

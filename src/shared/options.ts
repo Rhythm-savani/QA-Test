@@ -105,6 +105,8 @@ export const DEFAULT_OPTIONS: Options = {
   variantsMax: 8,
   confirmedNewsletterL2: false,
   confirmedCartActions: false,
+  visualMask: ['video', 'iframe', 'slider-component', '[aria-roledescription=carousel]'],
+  visualThresholdPct: 0.5,
 };
 
 function isObj(v: unknown): v is Record<string, unknown> {
@@ -190,6 +192,8 @@ export function sanitizeOptions(input: unknown): Options {
     variantsMax: num(input.variantsMax, d.variantsMax, 1, 50),
     confirmedNewsletterL2: bool(input.confirmedNewsletterL2, false),
     confirmedCartActions: bool(input.confirmedCartActions, false),
+    visualMask: strList(input.visualMask, d.visualMask),
+    visualThresholdPct: num(input.visualThresholdPct, d.visualThresholdPct, 0, 100),
   };
 }
 

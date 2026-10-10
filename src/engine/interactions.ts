@@ -14,6 +14,8 @@ export interface IO {
   shot(tag: string, el: Element | null, opts?: { viewport?: boolean }): Promise<void>;
   /** Fire-and-forget progress for the orchestrator, so partial results survive a navigation. */
   log?(kind: 'finding' | 'index', data: unknown): void;
+  /** Trusted mouse move (no click). */
+  hover?(x: number, y: number): Promise<void>;
 }
 
 export interface RawIx {
@@ -45,6 +47,8 @@ export interface IxOptions {
   skipSelectors: string[];
   denylistExtra: string[];
   deadline: number;
+  /** INT-6: hover top-level navigation items with submenus (desktop, trusted input only). */
+  hover?: boolean;
 }
 
 const wait = (ms: number) => new Promise<void>((r) => setTimeout(r, ms));
@@ -367,7 +371,67 @@ export async function runInteractions(opts: IxOptions, io: IO): Promise<IxRun> {
       history.replaceState(history.state, '', startUrl);
     }
   }
+  if (opts.hover && io.hover && !run.needReload && performance.now() < opts.deadline) {
+    await testHoverMenus(io, rep, run);
+  }
   return run;
+}
+
+/** INT-6: top-level nav items whose submenu is hidden until hovered. */
+async function testHoverMenus(io: IO, rep: Rep, run: IxRun): Promise<void> {
+  const items: { li: Element; sub: Element }[] = [];
+  for (const li of Array.from(document.querySelectorAll('nav li, [role=menubar] > *'))) {
+    if (li.parentElement?.closest('li ul, [role=menu]')) continue; // top level only
+    const sub = li.querySelector(
+      ':scope > ul, :scope > [role=menu], :scope > [class*=submenu], :scope > [class*=dropdown]',
+    );
+    if (!sub || !isVisible(li) || isVisible(sub)) continue;
+    items.push({ li, sub });
+    if (items.length >= 8) break;
+  }
+  for (const { li, sub } of items) {
+    li.scrollIntoView({ block: 'nearest' });
+    await wait(60);
+    const r = li.getBoundingClientRect();
+    await io.hover!(r.left + r.width / 2, r.top + r.height / 2);
+    const shown = await until(() => isVisible(sub), 900);
+    const name = accessibleName(li).slice(0, 30) || selectorFor(li);
+    if (!shown) {
+      await rep(
+        'interaction/hover-menu-no-effect',
+        'warning',
+        `Hovering "${name}" does not reveal its submenu`,
+        li,
+        true,
+        undefined,
+        false,
+      );
+    } else {
+      await wait(150);
+      const s = sub.getBoundingClientRect();
+      const probe = document.elementFromPoint(
+        s.left + s.width / 2,
+        s.top + Math.min(s.height - 1, 8),
+      );
+      const clipped =
+        s.right > window.innerWidth + 1 || s.left < -1 || s.bottom > window.innerHeight + 400;
+      const covered = !!probe && probe !== sub && !sub.contains(probe) && !probe.contains(sub);
+      if (clipped || covered) {
+        await rep(
+          'interaction/hover-menu-clipped',
+          'warning',
+          `The submenu of "${name}" is ${clipped ? 'cut off by the viewport' : 'covered by another element'}`,
+          sub,
+          true,
+          undefined,
+          false,
+        );
+      } else run.passed.push(`hover: ${name}`);
+    }
+    await io.hover!(1, 1);
+    await wait(150);
+    run.tested++;
+  }
 }
 
 type Rep = (

@@ -144,6 +144,7 @@ ${broken ? `<style>@font-face { font-family: 'QAFont'; src: url('/assets/missing
 ${head}
 </head>
 <body ${bodyAttrs}>
+${ctx.query.get('qa_variant') === 'banner' ? '<div style="background:#c00;color:#fff;padding:24px;text-align:center">Seeded visual change</div>' : ''}
 <a class="skip-to-content-link" href="#MainContent">Skip to content</a>
 <header class="header">
   <header-drawer class="header-drawer">
@@ -161,7 +162,7 @@ ${head}
   </header-drawer>
   <a class="header__heading-link" href="/">Northwind</a>
   <nav aria-label="Main menu"><ul class="header__menu">
-    <li><a href="/collections/all">Shop</a></li>
+    <li class="has-sub"><a href="/collections/all">Shop</a><ul class="submenu"><li><a href="/collections/rings">Rings</a></li><li><a href="/collections/studs">Studs</a></li></ul></li>${broken ? '<li class="has-sub"><a href="/collections/new">Sale</a><ul class="submenu submenu--dead"><li><a href="/collections/new">Everything on sale</a></li></ul></li>' : ''}
     <li><a href="/pages/about">About</a></li>
     <li><a href="/blogs/news">Journal</a></li>
   </ul></nav>

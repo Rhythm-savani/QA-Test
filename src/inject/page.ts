@@ -209,6 +209,11 @@ function install() {
           .elementFromPoint(x, y)
           ?.dispatchEvent(new MouseEvent('click', { bubbles: true, clientX: x, clientY: y }));
       },
+      hover: hasBinding
+        ? async (x: number, y: number) => {
+            await rpc('move', toVisual(x, y));
+          }
+        : undefined,
       async key(key) {
         if (hasBinding && (await rpc('key', { key }))) return;
         const t = document.activeElement ?? document.body;

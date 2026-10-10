@@ -181,6 +181,16 @@ export const RULES: Record<string, RuleInfo> = {
     title: 'Tab or accordion panel did not change',
     category: 'interaction',
   },
+  'interaction/hover-menu-no-effect': {
+    title: 'Hover menu does not open',
+    category: 'interaction',
+    hint: 'The submenu stays hidden when the parent item is hovered. Check the :hover/:focus-within rules or the menu script.',
+  },
+  'interaction/hover-menu-clipped': {
+    title: 'Hover submenu is clipped or covered',
+    category: 'interaction',
+    hint: 'Check overflow on the header and the stacking order of the submenu.',
+  },
   'interaction/unexpected-navigation': {
     title: 'Interaction navigated away',
     category: 'interaction',
@@ -265,6 +275,13 @@ export const RULES: Record<string, RuleInfo> = {
   'cart/remove-failed': { title: 'Remove from cart did not work', category: 'cart' },
   'cart/not-restored': { title: 'Cart not restored to its original state', category: 'cart' },
 
+  'visual/diff': {
+    title: 'Page differs from its visual baseline',
+    category: 'layout',
+    hint: 'Compare the diff image with the baseline. If the change is intended, save this run as the new baseline.',
+  },
+  'visual/size-changed': { title: 'Screenshot size differs from baseline', category: 'layout' },
+  'visual/no-baseline': { title: 'No visual baseline stored', category: 'layout' },
   'custom/rule-failed': { title: 'Custom rule failed', category: 'interaction' },
   'safety/left-safe-zone': {
     title: 'Navigation to a protected page was blocked',
@@ -349,6 +366,8 @@ export const VISUAL_RULES = new Set<string>([
   'interaction/trigger-no-effect',
   'interaction/carousel-no-effect',
   'interaction/tab-panel-mismatch',
+  'interaction/hover-menu-no-effect',
+  'interaction/hover-menu-clipped',
   'shopify/variant-price-mismatch',
   'shopify/variant-availability-mismatch',
   'shopify/cart-badge-mismatch',

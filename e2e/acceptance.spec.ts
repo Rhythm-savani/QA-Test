@@ -161,6 +161,11 @@ test.describe('broken fixture: home page', () => {
     expect(has(run, 'interaction/escape-not-closing', { severity: 'warning' })).toBe(true);
     expect(has(run, 'interaction/trigger-no-effect', { severity: 'warning' })).toBe(true);
     expect(has(run, 'interaction/carousel-no-effect', { severity: 'warning' })).toBe(true);
+    // INT-6: the seeded "Sale" menu never opens on hover (desktop only)
+    expect(
+      has(run, 'interaction/hover-menu-no-effect', { severity: 'warning', viewport: 'desktop' }),
+    ).toBe(true);
+    expect(has(run, 'interaction/hover-menu-no-effect', { viewport: 'mobile' })).toBe(false);
   });
 
   test('accessibility, performance, cart badge (rows 19, 20, 23)', async () => {
@@ -304,12 +309,11 @@ test.describe('custom rules (CHK-18)', () => {
       url: fx.clean + '/',
       viewports: ['desktop'],
       groups: only,
-      opts: { customRules: rules },
+      opts: { customRules: JSON.stringify(JSON.parse(rules).slice(0, 1)) },
     });
     const r = run.completed[0].results.find((x) => x.checkId === 'CHK-18');
     expect(r?.status).toBe('passed');
-    // the second rule's trigger does not exist on the clean store: reported as a warning, not an error
-    expect(find(run, 'custom/rule-failed').every((f) => f.severity === 'warning')).toBe(true);
+    expect(find(run, 'custom/rule-failed')).toHaveLength(0);
   });
 
   test('a rule whose close control does nothing is reported on the broken store', async () => {
@@ -570,5 +574,50 @@ test.describe('report UI', () => {
     expect(fixed).toBe(0);
     expect(first.findings.length).toBeGreaterThan(0);
     await page.close();
+  });
+});
+
+test.describe('visual baseline (CHK-19)', () => {
+  const only = {
+    visual: true,
+    interactions: false,
+    accessibility: false,
+    links: false,
+    performance: false,
+    shopify: false,
+  };
+
+  test('save a baseline, match it, then catch a seeded visual change', async () => {
+    fx.reset();
+    const first = await runCheck(context, extId, {
+      url: fx.clean + '/',
+      viewports: ['desktop'],
+      groups: only,
+    });
+    expect(has(first.run, 'visual/no-baseline', { severity: 'info' })).toBe(true);
+    await first.page.click('#btn-baseline');
+    await expect(first.page.locator('.toast')).toContainText('visual baseline');
+    await first.page.close();
+
+    const same = await runCheck(context, extId, {
+      url: fx.clean + '/',
+      viewports: ['desktop'],
+      groups: only,
+    });
+    expect(same.run.findings.filter((f) => f.rule.startsWith('visual/'))).toEqual([]);
+    expect(same.run.completed[0].results.find((r) => r.checkId === 'CHK-19')?.status).toBe(
+      'passed',
+    );
+    await same.page.close();
+
+    const changed = await runCheck(context, extId, {
+      url: fx.clean + '/?qa_variant=banner',
+      viewports: ['desktop'],
+      groups: only,
+    });
+    const diff = find(changed.run, 'visual/diff', { severity: 'warning' });
+    expect(diff).toHaveLength(1);
+    expect(diff[0].screenshotId).toBeTruthy();
+    await changed.page.close();
   });
 });

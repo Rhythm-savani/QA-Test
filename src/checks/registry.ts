@@ -18,6 +18,7 @@ import { chk15 } from './chk15-search';
 import { chk16 } from './chk16-newsletter';
 import { chk17 } from './chk17-cart-actions';
 import { chk18 } from './chk18-custom-rules';
+import { chk19 } from './chk19-visual-baseline';
 
 // Each check is typed with its own data shape; the registry erases it to `unknown` because
 // collect() and analyze() are only ever paired by id at runtime.
@@ -40,6 +41,7 @@ export const CHECKS = [
   chk16,
   chk17,
   chk18,
+  chk19,
 ] as unknown as Check[];
 
 export function checkById(id: string): Check | undefined {
