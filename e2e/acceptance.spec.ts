@@ -556,12 +556,16 @@ test.describe('report UI', () => {
     expect(await page.locator('.badge.off').count()).toBeGreaterThan(0);
     // severity filter
     await page.click('button[data-sev="error"]');
+    await expect(page.locator('button[data-sev="error"]')).toHaveAttribute('aria-pressed', 'true');
     await expect(page.locator('details.finding.warning')).toHaveCount(0);
     expect(await page.locator('details.finding.error').count()).toBeGreaterThan(0);
     // text filter
     await page.fill('#f-text', 'missing-alt');
+    await expect(page.locator('#f-text')).toHaveValue('missing-alt');
     await expect(page.locator('details.finding')).toHaveCount(0);
     await page.click('button[data-sev="all"]');
+    await expect(page.locator('button[data-sev="all"]')).toHaveAttribute('aria-pressed', 'true');
+    await expect(page.locator('#f-text')).toHaveValue('missing-alt');
     await expect(page.locator('details.finding')).toHaveCount(1);
     // seen-on summary
     await expect(body).toContainText('Passed checks');
